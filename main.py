@@ -5,20 +5,21 @@ from PIL import Image, ImageTk
 import threading as th
 import random
 
-def addHost():
+import canvasController as cc
+
+def addHost(c):
     global hostArray
     global ipAddr_txt
     global hosts_tree
-    hostArray.append( [ ipAddr_txt.get() ] )
-    hosts_tree.insert('', 0, 'gallery', text = hostArray[0])
+    x1 = cc.hostCanvas(c, "wrkStn")
+    x2 = ipAddr_txt.get()
+    x3 = hosts_tree.insert('', 'end', text = x2)
+    hostArray.append( [x2, x1, x3] )
     ipAddr_txt.delete(0, END)
+    print(hostArray)
 
 def removeHost():
     print("test")
-
-##################################################
-# [ REDACTED - PRIVATE IMAGE MANIPULATION CODE ] #
-##################################################
 
 def initGui(tkDefaultWidth):
     global windowMain
@@ -29,7 +30,7 @@ def initGui(tkDefaultWidth):
         windowMain, 
         width=500, 
         height=500, 
-        bg="#00FF00")
+        bg="#6b6b6b")
     hosts_tree = ttk.Treeview(
         windowMain, 
         columns=('size', 'modified'))
@@ -41,7 +42,7 @@ def initGui(tkDefaultWidth):
         windowMain,
         width = tkDefaultWidth,
         text="Add Host",
-        command=lambda: addHost())
+        command=lambda: addHost(canvas))
     removeHost_btn = Button(
         windowMain,
         width = tkDefaultWidth,
@@ -52,7 +53,6 @@ def initGui(tkDefaultWidth):
     addHost_btn.grid(row = 2, column = 1)
     removeHost_btn.grid(row = 3, column = 1)
     hosts_tree.grid(row = 5, column = 0, columnspan = 2)
-    addImage(canvas, "wrkStn", "n", 250, 250)
     windowMain.title(f"{pgrmName}")
 
 global pgrmName  ; pgrmName = "Armtiage Bootleg"
