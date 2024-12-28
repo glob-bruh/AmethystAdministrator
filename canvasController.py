@@ -3,9 +3,8 @@ import random
 import sys
 from matplotlib import font_manager
 from PIL import Image, ImageTk, ImageFont, ImageDraw
-
-import main as m
 import servicesManager as svMgr
+
 
 class hostCanvas():
     def __init__(self, hArr, win, c, ip, src):
