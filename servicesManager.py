@@ -48,3 +48,16 @@ def serviceManagementWindowConstruct(x, ip2find):
                 values = ( t1[0], t1[1] ),
                 image = t2)
         windowServiceMgr.mainloop()
+
+def addServiceToHost():
+    windowAddServiceMgr = Tk()
+    Grid.grid_rowconfigure(windowAddServiceMgr, index=0, weight=1)
+    Grid.grid_columnconfigure(windowAddServiceMgr, index=0, weight=1)
+    textBox1_label = Label(windowAddServiceMgr, text = "Service Name:")
+    inputEntry_txtEnter = Entry(
+        windowAddServiceMgr,
+        validate = 'key')
+    textBox1_label.grid(row = 0, column = 0)
+    inputEntry_txtEnter.grid(row = 0, column = 1)
+    windowAddServiceMgr.title("Add New Service")
+    windowAddServiceMgr.mainloop()

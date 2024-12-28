@@ -32,7 +32,7 @@ class hostCanvas():
         c.create_image(50, 50, image = getattr(c, i), tags = ("movable"))
         c.tag_bind("movable", "<ButtonPress-1>", self.imgMoveStart)
         c.tag_bind("movable", "<ButtonRelease-1>", self.imgMoveStop)
-        c.tag_bind("movable", "<Double-Button-1>", self.imgContextMenu)
+        c.tag_bind("movable", "<Button-3>", self.imgContextMenu)
         c.tag_bind("movable", "<B1-Motion>", self.imgMove)
 
     def imgMoveStart(self, event):
