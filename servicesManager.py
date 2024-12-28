@@ -1,16 +1,29 @@
+"""
+-----------------------------------------------
+ARMITAGE BOOTLEG
+All content licensed under BSD-3
+-----------------------------------------------
+servicesManager - SERVICE MANAGEMENT TOOL CODE:
+-----------------------------------------------
+Contains functions for service manager window and
+its related functions and sub-windows. 
+-----------------------------------------------
+"""
+
 from tkinter import *
 from tkinter import ttk
 
 def serviceManagementWindowConstruct(x, ip2find):
+    global arrayForThisSys
     print("serviceManager")
     arrayForThisSys = []
     for i in x:
         if i[0] == ip2find:
             arrayForThisSys = i
     if len(arrayForThisSys) != 0:
-        arrayForThisSys[4] = {
-            "ssh": ["22", "testUser", "P@55W0rd"]
-        } # THIS IS FOR TESTING = Port has to be str for things that use multiple ports (so they can be declared as "various")
+        #arrayForThisSys[4] = {
+        #    "ssh": ["22", "testUser", "P@55W0rd"]
+        #} # THIS IS FOR TESTING = Port has to be str for things that use multiple ports (so they can be declared as "various")
         print(arrayForThisSys)
         windowServiceMgr = Toplevel()
         services_tree = ttk.Treeview(
@@ -51,13 +64,44 @@ def serviceManagementWindowConstruct(x, ip2find):
 
 def addServiceToHost():
     windowAddServiceMgr = Tk()
-    Grid.grid_rowconfigure(windowAddServiceMgr, index=0, weight=1)
-    Grid.grid_columnconfigure(windowAddServiceMgr, index=0, weight=1)
     textBox1_label = Label(windowAddServiceMgr, text = "Service Name:")
-    inputEntry_txtEnter = Entry(
+    inputEntry1_txtEnter = Entry(
         windowAddServiceMgr,
         validate = 'key')
+    textBox2_label = Label(windowAddServiceMgr, text = "Ports (comma separated):")
+    inputEntry2_txtEnter = Entry(
+        windowAddServiceMgr,
+        validate = 'key')
+    textBox3_label = Label(windowAddServiceMgr, text = "Username (optional):")
+    inputEntry3_txtEnter = Entry(
+        windowAddServiceMgr,
+        validate = 'key')
+    textBox4_label = Label(windowAddServiceMgr, text = "Password (optional):")
+    inputEntry4_txtEnter = Entry(
+        windowAddServiceMgr,
+        validate = 'key')
+    addServiceFinish_btn = Button(
+        windowAddServiceMgr,
+        text = "Add Service",
+        command = lambda: addServiceAndCloseWindow(
+            windowAddServiceMgr,
+            inputEntry1_txtEnter.get(), 
+            inputEntry2_txtEnter.get(),
+            inputEntry3_txtEnter.get(),
+            inputEntry4_txtEnter.get() ))
     textBox1_label.grid(row = 0, column = 0)
-    inputEntry_txtEnter.grid(row = 0, column = 1)
+    textBox2_label.grid(row = 1, column = 0)
+    textBox3_label.grid(row = 2, column = 0)
+    textBox4_label.grid(row = 3, column = 0)
+    inputEntry1_txtEnter.grid(row = 0, column = 1)
+    inputEntry2_txtEnter.grid(row = 1, column = 1)
+    inputEntry3_txtEnter.grid(row = 2, column = 1)
+    inputEntry4_txtEnter.grid(row = 3, column = 1)
+    addServiceFinish_btn.grid(row = 4, column = 0, columnspan = 2)
     windowAddServiceMgr.title("Add New Service")
     windowAddServiceMgr.mainloop()
+
+def addServiceAndCloseWindow(win, name, ports, user, passwd):
+    global arrayForThisSys
+    arrayForThisSys[4][name] = [ports, user, passwd]
+    win.destroy()
