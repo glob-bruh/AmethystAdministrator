@@ -4,7 +4,7 @@ import canvasController as cc
 
 
 class MainWindow:
-    def __init__(self, program_name: str = "Main Window A", window_main=Tk()):
+    def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
         self.window_main = window_main
         self.host_array = None
         self.ip_text = None
