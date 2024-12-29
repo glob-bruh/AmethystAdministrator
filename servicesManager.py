@@ -1,13 +1,14 @@
 """
------------------------------------------------
-ARMITAGE BOOTLEG
+-------------------------------------------------
+AMETHYST ADMINISTRATOR
+https://github.com/glob-bruh/AmthystAdministrator
 All content licensed under BSD-3
------------------------------------------------
+-------------------------------------------------
 servicesManager - SERVICE MANAGEMENT TOOL CODE:
------------------------------------------------
+-------------------------------------------------
 Contains functions for service manager window and
 its related functions and sub-windows. 
------------------------------------------------
+-------------------------------------------------
 """
 
 from tkinter import *
@@ -21,29 +22,15 @@ def serviceManagementWindowConstruct(x, ip2find):
         if i[0] == ip2find:
             arrayForThisSys = i
     if len(arrayForThisSys) != 0:
-        #arrayForThisSys[4] = {
-        #    "ssh": ["22", "testUser", "P@55W0rd"]
-        #} # THIS IS FOR TESTING = Port has to be str for things that use multiple ports (so they can be declared as "various")
         print(arrayForThisSys)
         windowServiceMgr = Toplevel()
-        services_tree = ttk.Treeview(
-            windowServiceMgr,
-            columns=["port", "username"])
+        services_tree = ttk.Treeview(windowServiceMgr, columns=["port", "username"])
         services_tree.heading("#0", text = "Name")
         services_tree.heading("port", text = "Port")
         services_tree.heading("username", text = "Username")
-        addService_btn = Button(
-            windowServiceMgr,
-            text="Add Service",
-            command=lambda: addServiceToHost())
-        removeService_btn = Button(
-            windowServiceMgr,
-            text="Remove Service",
-            command=lambda: removeServiceFromHost())
-        modifyService_btn = Button(
-            windowServiceMgr,
-            text="Edit Service",
-            command=lambda: modifyServiceFromHost())
+        addService_btn = Button(windowServiceMgr, text="Add Service", command=lambda: addServiceToHost())
+        removeService_btn = Button(windowServiceMgr, text="Remove Service", command=lambda: removeServiceFromHost())
+        modifyService_btn = Button(windowServiceMgr, text="Edit Service", command=lambda: modifyServiceFromHost())
         Grid.grid_rowconfigure(windowServiceMgr, index=0, weight=1)
         Grid.grid_columnconfigure(windowServiceMgr, index=0, weight=1)
         services_tree.grid(row = 0, column = 0, rowspan = 5, sticky="nsew")
@@ -65,24 +52,15 @@ def serviceManagementWindowConstruct(x, ip2find):
 def addServiceToHost():
     windowAddServiceMgr = Tk()
     textBox1_label = Label(windowAddServiceMgr, text = "Service Name:")
-    inputEntry1_txtEnter = Entry(
-        windowAddServiceMgr,
-        validate = 'key')
+    inputEntry1_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
     textBox2_label = Label(windowAddServiceMgr, text = "Ports (comma separated):")
-    inputEntry2_txtEnter = Entry(
-        windowAddServiceMgr,
-        validate = 'key')
+    inputEntry2_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
     textBox3_label = Label(windowAddServiceMgr, text = "Username (optional):")
-    inputEntry3_txtEnter = Entry(
-        windowAddServiceMgr,
-        validate = 'key')
+    inputEntry3_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
     textBox4_label = Label(windowAddServiceMgr, text = "Password (optional):")
-    inputEntry4_txtEnter = Entry(
-        windowAddServiceMgr,
-        validate = 'key')
+    inputEntry4_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
     addServiceFinish_btn = Button(
-        windowAddServiceMgr,
-        text = "Add Service",
+        windowAddServiceMgr, text = "Add Service",
         command = lambda: addServiceAndCloseWindow(
             windowAddServiceMgr,
             inputEntry1_txtEnter.get(), 

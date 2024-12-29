@@ -1,17 +1,19 @@
 """
------------------------------------------------
-ARMITAGE BOOTLEG
+-------------------------------------------------
+AMETHYST ADMINISTRATOR
+https://github.com/glob-bruh/AmthystAdministrator
 All content licensed under BSD-3
------------------------------------------------
+-------------------------------------------------
 main - MAIN PYTHON FILE:
------------------------------------------------
+-------------------------------------------------
 This file is the first thing executed. 
------------------------------------------------
+-------------------------------------------------
 """
 
 from tkinter import *
-from tkinter import colorchooser
+#from tkinter import colorchooser
 from tkinter import ttk
+from tkinter import messagebox
 from PIL import Image, ImageTk
 import threading as th
 import random
@@ -20,27 +22,28 @@ import canvasController as cc
 import servicesManager as svMgr
 import networkVerify as netV
 
-def addHost(c):
+def addHost(c, deviceType_drp):
     global windowMain
     global hostArray
     global ipAddr_txt
-    global hostType_drop_val
     global hosts_tree
-    x4 = cc.deviceToImg(hostType_drop_val.get())
+    x4 = cc.deviceToImg(deviceType_drp.get())
     if x4 == "???":
         x4 = "wstn"
+    t = cc.imgToDevice(x4)
     x2 = ipAddr_txt.get()
     if netV.validateIPv4(x2) == True:
         x1 = cc.hostCanvas(hostArray, windowMain, c, x2, x4)
         x3 = hosts_tree.insert(
             "", END,
             text = x2,
-            values=(0, 0, 0, 0)) # get these working!
+            values=(t, 0, "Pinger not running", 0)) # get these working!
         hostArray.append( [ x2, x4, x1, x3, {} ] )
-    else: 
-        print("BAD IP DETECTED, NOT CONTINUING") # tell user about this in GUI
+    else:
+        # https://docs.python.org/3/library/tkinter.messagebox.html
+        messagebox.showwarning(title = "Not a Valid IPv4", message = f"The text \"{x2}\" is not a valid IPv4 address.")
     ipAddr_txt.delete(0, END)
-    hostType_drop_val.set("workstation")
+    deviceType_drp.set("workstation")
     print(hostArray)
 
 def removeHost():
@@ -58,11 +61,7 @@ def initGui(win, tkDefWidth):
     global ipAddr_txt
     global hostType_drop_val
     global hosts_tree
-    canvas = Canvas(
-        win, 
-        width=500, 
-        height=500, 
-        bg="#171717")
+    canvas = Canvas(win, width=500, height=500, bg="#171717")
     hosts_tree = ttk.Treeview(
         win, 
         columns=["deviceType", "numServ", "isOnline", "isControllable"])
@@ -72,26 +71,14 @@ def initGui(win, tkDefWidth):
     hosts_tree.heading("isOnline", text = "Pingable")
     hosts_tree.heading("isControllable", text = "Controllable")
     ipAddr_lbl = Label(win, width = tkDefWidth, text = "IP Address:")
-    ipAddr_txt = Entry(
-        win,
-        width = tkDefWidth,
-        validate = 'key',)
+    ipAddr_txt = Entry(win, width = tkDefWidth, validate = 'key')
     hostType_drop_val = StringVar() 
     hostType_drop_val.set("Select Client Type") 
     hostType_drop = OptionMenu(
-        win,
-        hostType_drop_val,
+        win, hostType_drop_val,
         *[ "workstation", "server", "router" ])  
-    addHost_btn = Button(
-        win,
-        width = tkDefWidth,
-        text="Add Host",
-        command=lambda: addHost(canvas))
-    removeHost_btn = Button(
-        win,
-        width = tkDefWidth,
-        text="Remove Host",
-        command=lambda: removeHost())
+    addHost_btn = Button(win, width = tkDefWidth, text="Add Host", command=lambda: addHost(canvas, hostType_drop_val))
+    removeHost_btn = Button(win, width = tkDefWidth, text="Remove Host", command=lambda: removeHost())
     Grid.grid_rowconfigure(win, index=0, weight=1)
     Grid.grid_columnconfigure(win, index=0, weight=1)
     canvas.grid(row = 0, column = 0, rowspan = 6, sticky="nsew")
@@ -101,10 +88,13 @@ def initGui(win, tkDefWidth):
     addHost_btn.grid(row = 4, column = 1)
     removeHost_btn.grid(row = 5, column = 1)
     hosts_tree.grid(row = 6, column = 0, columnspan = 2, rowspan = 4, sticky="nsew")
+    x = Image.open("resources/pic/logo/logoNormal.ico")
+    pgrmLogo_ico = ImageTk.PhotoImage(x)
+    win.wm_iconphoto(False, pgrmLogo_ico)
     win.title(f"{pgrmName}")
 
 if __name__ == "__main__":
-    global pgrmName  ; pgrmName = "Armtiage Bootleg"
+    global pgrmName  ; pgrmName = "Amethyst Administrator"
     global hostArray ; hostArray = []
     global windowMain
     windowMain = Tk()

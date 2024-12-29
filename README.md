@@ -1,7 +1,11 @@
-# ArmitageBootleg
+
+# Amethyst Administrator
 
 ## Development Checklist:
-- [ ] Main window in class.
+- [ ] Put windows in classes.
+  - [ ] Main window (`main.py` and `initGui()`).
+  - [ ] Service Manager Window (`serviceManagementWindowConstruct()`).
+    - [ ] Add Service Window (`addServiceToHost()`).
 - [ ] Remove client from main window.
 - [ ] Edit client. 
 - [ ] Find ways to refresh/update the canvas/treeviews after removing values.
@@ -20,11 +24,11 @@
   - [ ] Load file/data.
 - [ ] Subnet calculations/processing.
 - [ ] IP address calculations/processing.
-  - [ ] IP address valid verify (to make sure entered IP's are actual IP address).
+  - [x] IPv4 address valid verify (to make sure entered IP's are actual IP address).
 - [ ] Auto ping clients and show results.
-  - [ ] Contain in its own classed thread.
+  - [x] Contain in its own classed thread.
 - [ ] TkInter terminal for ssh/telnet/terminal connections (worst case scenario launch a new term on the sys and run command).
-- [ ] Come up with flashy name (since its a "purple-team" tool perhaps something with "amethyst" in it).
+- [x] Come up with flashy name (since its a "purple-team" tool perhaps something with "amethyst" in it).
 - [ ] Implement the ability to connect to clients over various protocols (in order of importance):
   - [ ] Terminals - SSH and Telnet.
   - [ ] File Transfer - FTP, SFTP and SAMBA.
