@@ -64,6 +64,7 @@ def removeHost():
             if t[0] == treeCurSel:  break
             else:                   i += 1
         cc.removeHostFromCanvas(hostArray[i][2]) 
+        x = hosts_tree.selection()[0] ; hosts_tree.delete(x)
         hostArray.pop(i) # update treelist to match
         print(hostArray)
 
