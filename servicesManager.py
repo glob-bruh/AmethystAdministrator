@@ -1,14 +1,14 @@
 """
--------------------------------------------------
+--------------------------------------------------
 AMETHYST ADMINISTRATOR
-https://github.com/glob-bruh/AmthystAdministrator
+https://github.com/glob-bruh/AmethystAdministrator
 All content licensed under BSD-3
--------------------------------------------------
+--------------------------------------------------
 servicesManager - SERVICE MANAGEMENT TOOL CODE:
--------------------------------------------------
+--------------------------------------------------
 Contains functions for service manager window and
 its related functions and sub-windows. 
--------------------------------------------------
+--------------------------------------------------
 """
 
 from tkinter import *

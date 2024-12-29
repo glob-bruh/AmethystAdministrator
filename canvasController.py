@@ -1,14 +1,14 @@
 """
--------------------------------------------------
+--------------------------------------------------
 AMETHYST ADMINISTRATOR
-https://github.com/glob-bruh/AmthystAdministrator
+https://github.com/glob-bruh/AmethystAdministrator
 All content licensed under BSD-3
--------------------------------------------------
+--------------------------------------------------
 canvasController - CANVAS CONTROLLER FUNCTIONS:
--------------------------------------------------
+--------------------------------------------------
 Contains functions to manipulate the canvas
 widget on the main window and its images.
--------------------------------------------------
+--------------------------------------------------
 """
 
 from tkinter import *
@@ -43,7 +43,7 @@ class hostCanvas():
         x.text((0, imgHeight - 25), ip, (255,255,255), font = font)
         image = ImageTk.PhotoImage(image)
         setattr(c, i, image)
-        c.create_image(50, 50, image = getattr(c, i), tags = ("movable"))
+        self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable"))
         c.tag_bind("movable", "<ButtonPress-1>", self.imgMoveStart)
         c.tag_bind("movable", "<ButtonRelease-1>", self.imgMoveStop)
         c.tag_bind("movable", "<Button-3>", self.imgContextMenu)
@@ -80,6 +80,8 @@ class hostCanvas():
         contextMenu.add_command( label = "Close Menu" )
         contextMenu.tk_popup(event.x_root, event.y_root) 
 
+def removeHostFromCanvas(host):
+    host.canvas.delete(host.imgCanvasID)
 
 def genImgDeviceLookup():
     return [

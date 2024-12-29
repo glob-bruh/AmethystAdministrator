@@ -1,14 +1,14 @@
 """
--------------------------------------------------
+--------------------------------------------------
 AMETHYST ADMINISTRATOR
-https://github.com/glob-bruh/AmthystAdministrator
+https://github.com/glob-bruh/AmethystAdministrator
 All content licensed under BSD-3
--------------------------------------------------
+--------------------------------------------------
 networkPinger - NETWORK UPTIME MONITORING:
--------------------------------------------------
+--------------------------------------------------
 Contains code for ensuring clients added to the
 program are pinged continuously.
--------------------------------------------------
+--------------------------------------------------
 """
 
 import threading as th

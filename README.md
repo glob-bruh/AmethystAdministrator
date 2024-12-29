@@ -1,5 +1,10 @@
 
+<center>
+
 # Amethyst Administrator
+![Logo](resources/pic/logo/logoNormal.png)
+
+</center>
 
 ## Development Checklist:
 - [ ] Put windows in classes.

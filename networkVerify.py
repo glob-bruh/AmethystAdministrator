@@ -1,7 +1,7 @@
 """
 ------------------------------------------------------
 AMETHYST ADMINISTRATOR
-https://github.com/glob-bruh/AmthystAdministrator
+https://github.com/glob-bruh/AmethystAdministrator
 All content licensed under BSD-3
 ------------------------------------------------------
 networkVerify - NETWORK VERIFICATION FUNCTIONS:

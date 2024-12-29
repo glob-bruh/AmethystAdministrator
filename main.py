@@ -1,13 +1,13 @@
 """
--------------------------------------------------
+--------------------------------------------------
 AMETHYST ADMINISTRATOR
-https://github.com/glob-bruh/AmthystAdministrator
+https://github.com/glob-bruh/AmethystAdministrator
 All content licensed under BSD-3
--------------------------------------------------
+--------------------------------------------------
 main - MAIN PYTHON FILE:
--------------------------------------------------
+--------------------------------------------------
 This file is the first thing executed. 
--------------------------------------------------
+--------------------------------------------------
 """
 
 from tkinter import *
@@ -27,21 +27,27 @@ def addHost(c, deviceType_drp):
     global hostArray
     global ipAddr_txt
     global hosts_tree
-    x4 = cc.deviceToImg(deviceType_drp.get())
-    if x4 == "???":
-        x4 = "wstn"
-    t = cc.imgToDevice(x4)
     x2 = ipAddr_txt.get()
-    if netV.validateIPv4(x2) == True:
-        x1 = cc.hostCanvas(hostArray, windowMain, c, x2, x4)
-        x3 = hosts_tree.insert(
-            "", END,
-            text = x2,
-            values=(t, 0, "Pinger not running", 0)) # get these working!
-        hostArray.append( [ x2, x4, x1, x3, {} ] )
-    else:
-        # https://docs.python.org/3/library/tkinter.messagebox.html
-        messagebox.showwarning(title = "Not a Valid IPv4", message = f"The text \"{x2}\" is not a valid IPv4 address.")
+    x = False
+    for i in hostArray:
+        if i[0] == x2:
+            messagebox.showwarning(title = "Host Already Exists", message = f"Host with the IP address of \"{x2}\" already exists.")
+            x = True
+    if x == False:
+        x4 = cc.deviceToImg(deviceType_drp.get())
+        if x4 == "???":
+            x4 = "wstn"
+        t = cc.imgToDevice(x4)
+        if netV.validateIPv4(x2) == True:
+            x1 = cc.hostCanvas(hostArray, windowMain, c, x2, x4)
+            x3 = hosts_tree.insert(
+                "", END,
+                text = x2,
+                values = (t, 0, "Pinger not running", False))
+            hostArray.append( [ x2, x4, x1, x3, {} ] )
+        else:
+            # https://docs.python.org/3/library/tkinter.messagebox.html
+            messagebox.showwarning(title = "Not a Valid IPv4", message = f"The text \"{x2}\" is not a valid IPv4 address.")
     ipAddr_txt.delete(0, END)
     deviceType_drp.set("workstation")
     print(hostArray)
@@ -51,16 +57,21 @@ def removeHost():
     global hostArray
     x = hosts_tree.focus()
     treeCurSel = hosts_tree.item(x)["text"]
-    i = 0
-    for t in hostArray:
-        if t[i] == treeCurSel:  break
-        else:                   i += 1
-    hostArray.pop(i - 1) # update canvas and treelist to match
+    x = messagebox.askquestion(title = "Remove Host?", message = f"Are you sure you want to delete the host \"{treeCurSel}\"?")
+    if x == "yes":
+        i = 0
+        for t in hostArray:
+            if t[0] == treeCurSel:  break
+            else:                   i += 1
+        cc.removeHostFromCanvas(hostArray[i][2]) 
+        hostArray.pop(i) # update treelist to match
+        print(hostArray)
 
 def initGui(win, tkDefWidth):
     global ipAddr_txt
     global hostType_drop_val
     global hosts_tree
+    global addHost_btn # TESTING
     canvas = Canvas(win, width=500, height=500, bg="#171717")
     hosts_tree = ttk.Treeview(
         win, 
@@ -99,4 +110,11 @@ if __name__ == "__main__":
     global windowMain
     windowMain = Tk()
     initGui(windowMain, 20)
+    #################################
+    # TESTING STUFF - Add clients automatically for testing.
+    global addHost_btn # remember to remove this from initGui()
+    ipAddr_txt.delete(0, END) ; ipAddr_txt.insert(0, "192.168.0.1") ; addHost_btn.invoke()
+    ipAddr_txt.delete(0, END) ; ipAddr_txt.insert(0, "192.168.0.2") ; addHost_btn.invoke()
+    ipAddr_txt.delete(0, END) ; ipAddr_txt.insert(0, "192.168.0.3") ; addHost_btn.invoke()
+    #################################
     windowMain.mainloop()
