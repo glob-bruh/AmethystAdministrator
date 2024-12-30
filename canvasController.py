@@ -78,7 +78,7 @@ class hostCanvas():
         contextMenu.add_command( label = "Browse Files")
         contextMenu.add_separator()
         contextMenu.add_command( label = "Close Menu" )
-        contextMenu.tk_popup(event.x_root, event.y_root) 
+        contextMenu.tk_popup(event.x_root, event.y_root)
 
 def removeHostFromCanvas(host):
     host.canvas.delete(host.imgCanvasID)
