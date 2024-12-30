@@ -17,7 +17,7 @@ import sys
 from matplotlib import font_manager
 from PIL import Image, ImageTk, ImageFont, ImageDraw
 
-import main as m
+#import main as m
 import servicesManager as svMgr
 import networkPinger as netPing
 
