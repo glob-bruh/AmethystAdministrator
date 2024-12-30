@@ -58,7 +58,7 @@ def addServiceToHost():
     textBox3_label = Label(windowAddServiceMgr, text = "Username (optional):")
     inputEntry3_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
     textBox4_label = Label(windowAddServiceMgr, text = "Password (optional):")
-    inputEntry4_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
+    inputEntry4_txtEnter = Entry(windowAddServiceMgr, show = "*", validate = 'key')
     addServiceFinish_btn = Button(
         windowAddServiceMgr, text = "Add Service",
         command = lambda: addServiceAndCloseWindow(

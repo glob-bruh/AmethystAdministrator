@@ -12,6 +12,8 @@ program are pinged continuously.
 """
 
 import threading as th
+import socket
+import struct
 
 class pinger(th.Thread): #for some reason target doesnt match when more than one on canvas
     def __init__(self, ip):

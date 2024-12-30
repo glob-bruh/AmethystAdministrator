@@ -1,17 +1,13 @@
-
-<center>
-
 # Amethyst Administrator
+
 ![Logo](resources/pic/logo/logoNormal.png)
 
-</center>
-
-## Development Checklist:
+### Development Checklist:
 - [ ] Put windows in classes.
-  - [ ] Main window (`main.py` and `initGui()`).
+  - [x] Main window (`main.py` and `initGui()`).
   - [ ] Service Manager Window (`serviceManagementWindowConstruct()`).
     - [ ] Add Service Window (`addServiceToHost()`).
-- [ ] Remove client from main window.
+- [x] Remove client from main window.
 - [ ] Edit client. 
 - [ ] Find ways to refresh/update the canvas/treeviews after removing values.
 - [ ] Finish services/TCP ports manager.
@@ -38,3 +34,8 @@
   - [ ] Terminals - SSH and Telnet.
   - [ ] File Transfer - FTP, SFTP and SAMBA.
   - [ ] Remote Administration - Remote PowerShell Command Execution, etc.
+
+### Contributors:
+<a href="https://github.com/glob-bruh/ArmitageBootleg/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=glob-bruh/ArmitageBootleg" />
+</a>
