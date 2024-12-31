@@ -15,11 +15,12 @@ from tkinter import *
 from tkinter import ttk
 
 class ServiceManagementWindow:
-    def __init__(self, x, ip2find):
+    def __init__(self, x, ip2find, tkDefWidth):
         self.window_serviceManage = Toplevel()
         self.hostArray = x
         self.ipAddress = ip2find
         self.arrayForThisSys =  []
+        self.defaultWidth = tkDefWidth
         print("serviceManager")
         for i in x:
             if i[0] == ip2find:
@@ -30,9 +31,9 @@ class ServiceManagementWindow:
             self.services_tree.heading("#0", text = "Name")
             self.services_tree.heading("port", text = "Port")
             self.services_tree.heading("username", text = "Username")
-            addService_btn = Button(self.window_serviceManage, text="Add Service", command=lambda: addServiceToHost(self))
-            removeService_btn = Button(self.window_serviceManage, text="Remove Service", command=lambda: removeServiceFromHost())
-            modifyService_btn = Button(self.window_serviceManage, text="Edit Service", command=lambda: modifyServiceFromHost())
+            addService_btn = Button(self.window_serviceManage, text="Add Service", width = self.defaultWidth, command=lambda: addServiceToHost(self))
+            removeService_btn = Button(self.window_serviceManage, text="Remove Service", width = self.defaultWidth, command=lambda: removeServiceFromHost())
+            modifyService_btn = Button(self.window_serviceManage, text="Edit Service", width = self.defaultWidth, command=lambda: modifyServiceFromHost())
             Grid.grid_rowconfigure(self.window_serviceManage, index=0, weight=1)
             Grid.grid_columnconfigure(self.window_serviceManage, index=0, weight=1)
             self.services_tree.grid(row = 0, column = 0, rowspan = 5, sticky="nsew")
