@@ -15,6 +15,10 @@ import threading as th
 import socket
 import struct
 
+class icmpPingSend():
+    def __init__():
+        print("based")
+
 class pinger(th.Thread): #for some reason target doesnt match when more than one on canvas
     def __init__(self, ip):
         self.target = ip

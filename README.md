@@ -5,11 +5,11 @@
 ### Development Checklist:
 - [ ] Put windows in classes.
   - [x] Main window (`main.py` and `initGui()`).
-  - [ ] Service Manager Window (`serviceManagementWindowConstruct()`).
+  - [x] Service Manager Window (`serviceManagementWindowConstruct()`).
     - [ ] Add Service Window (`addServiceToHost()`).
 - [x] Remove client from main window.
 - [ ] Edit client. 
-- [ ] Find ways to refresh/update the canvas/treeviews after removing values.
+- [ ] Find ways (or build a function) to refresh/update both the entire canvas and treeviews.
 - [ ] Finish services/TCP ports manager.
   - [x] Add service/port.
   - [ ] Remove service/port.
@@ -30,6 +30,7 @@
   - [x] Contain in its own classed thread.
 - [ ] TkInter terminal for ssh/telnet/terminal connections (worst case scenario launch a new term on the sys and run command).
 - [x] Come up with flashy name (since its a "purple-team" tool perhaps something with "amethyst" in it).
+- [ ] Secure password storage (in memory and on disk).
 - [ ] Implement the ability to connect to clients over various protocols (in order of importance):
   - [ ] Terminals - SSH and Telnet.
   - [ ] File Transfer - FTP, SFTP and SAMBA.

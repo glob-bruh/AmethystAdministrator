@@ -74,7 +74,7 @@ class hostCanvas():
         contextMenu.add_separator()
         contextMenu.add_command( label = "Auto-ping: OFF", command = lambda: netPing.pinger(self.ip) )
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Service Manager", command =  lambda: svMgr.serviceManagementWindowConstruct(self.hostArr, self.ip) )
+        contextMenu.add_command( label = "Service Manager", command =  lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip) )
         contextMenu.add_command( label = "Browse Files")
         contextMenu.add_separator()
         contextMenu.add_command( label = "Close Menu" )
