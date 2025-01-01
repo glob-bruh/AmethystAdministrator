@@ -2,8 +2,11 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from textwrap import dedent
 import threading as th
 import random
+from hashlib import md5
+import webbrowser
 
 import canvasController as cc
 import servicesManager as svMgr
@@ -47,7 +50,7 @@ class MainWindow:
     def removeHost(self):
         treeCurSel = self.hosts_tree.item( self.hosts_tree.focus() )["text"]
         x = messagebox.askquestion(title = "Remove Host?", message = f"Are you sure you want to delete the host \"{treeCurSel}\"?")
-        if x == "yes":
+        if x == "yes" and treeCurSel != "":
             i = 0
             for t in self.host_array:
                 if t[0] == treeCurSel:  break
@@ -93,8 +96,26 @@ class MainWindow:
 
 class AboutTheProgramWindow:
     def __init__(self, program_name):
-        win = Tk()
-        title_txt = Label(win, text = f"{program_name.upper()}")
+        win = Toplevel()
+        title_txt = Label(win, text = f"{program_name.upper()}", font = ("", 20, "bold"))
+        pgrmLogo_png = ImageTk.PhotoImage( Image.open("resources/pic/logo/logoNormal.png") )
+        logo_lbl = Label(win, image = pgrmLogo_png)
+        descText = ""
+        try:
+            with open("LICENSE", "r") as f:
+                for x in f:
+                    descText += f"{x.strip()}\n"
+        except OSError as e:
+            descText = "YOU HAVE BEEN SCAMMED! WHERE IS THE LICENSE FILE?"
+        aboutDesc_lbl = Label(win, text = descText)
+        aboutDescLink1_lbl = Label(win, text = "GitHub Page", fg = "blue", cursor = "hand2")
+        aboutDescLink1_lbl.bind("<Button-1>", lambda e: self.openLink("https://github.com/glob-bruh/AmethystAdministrator"))
         title_txt.grid(row=0, column=0)
+        logo_lbl.grid(row=1, column=0)
+        aboutDesc_lbl.grid(row=2, column=0)
+        aboutDescLink1_lbl.grid(row=3, column=0)
         win.title(f"About {program_name}")
         win.mainloop()
+
+    def openLink(self, url):
+        webbrowser.open_new(url)
