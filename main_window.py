@@ -17,7 +17,6 @@ from PIL import Image, ImageTk
 from textwrap import dedent
 import threading as th
 import random
-from hashlib import md5
 import webbrowser
 
 import canvasController as cc
@@ -128,7 +127,7 @@ class AboutTheProgramWindow:
                 """)
         aboutDesc_lbl = Label(win, text = descText)
         aboutDescLink1_lbl = Label(win, text = "GitHub Page", fg = "blue", cursor = "hand2")
-        aboutDescLink1_lbl.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator") )
+        aboutDescLink1_lbl.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
         title_txt.grid(row=0, column=0)
         logo_lbl.grid(row=1, column=0)
         aboutDesc_lbl.grid(row=2, column=0)

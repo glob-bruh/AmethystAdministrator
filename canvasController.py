@@ -46,7 +46,7 @@ class hostCanvas():
         self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable"))
         c.tag_bind("movable", "<ButtonPress-1>", self.imgMoveStart)
         c.tag_bind("movable", "<ButtonRelease-1>", self.imgMoveStop)
-        c.tag_bind("movable", "<Button-3>", self.imgContextMenu)
+        c.tag_bind("movable", "<Button-3>", self.imgContextMenu) #  WHEN CLICKED IT WILL DO THE TOPMOST ASSET, NOT THE ACTUAL ONE BEING CLICKED! NEEDS TO BE FIXED!
         c.tag_bind("movable", "<B1-Motion>", self.imgMove)
 
     def imgMoveStart(self, event):
@@ -68,6 +68,8 @@ class hostCanvas():
 
     def imgContextMenu(self, event):
         contextMenu = Menu(self.win, tearoff=0)
+        contextMenu.add_command( label = f"IP Address: {self.ip}") # This should open "edit host".
+        contextMenu.add_separator()
         contextMenu.add_command( label = "Connect via Terminal" )
         contextMenu.add_command( label = "Connect via Remote Desktop" )
         contextMenu.add_command( label = "Remote Administration Tools" )
