@@ -31,7 +31,7 @@ class ServiceManagementWindow:
             self.services_tree.heading("#0", text = "Name")
             self.services_tree.heading("port", text = "Port")
             self.services_tree.heading("username", text = "Username")
-            addService_btn = Button(self.window_serviceManage, text="Add Service", width = self.defaultWidth, command=lambda: addServiceToHost(self))
+            addService_btn = Button(self.window_serviceManage, text="Add Service", width = self.defaultWidth, command=lambda: ServiceManagementAddServiceWindow(self))
             removeService_btn = Button(self.window_serviceManage, text="Remove Service", width = self.defaultWidth, command=lambda: removeServiceFromHost())
             modifyService_btn = Button(self.window_serviceManage, text="Edit Service", width = self.defaultWidth, command=lambda: modifyServiceFromHost())
             Grid.grid_rowconfigure(self.window_serviceManage, index=0, weight=1)
@@ -52,39 +52,40 @@ class ServiceManagementWindow:
                     image = t2)
             self.window_serviceManage.mainloop()
 
-def addServiceToHost(parentClass):
-    windowAddServiceMgr = Tk()
-    textBox1_label = Label(windowAddServiceMgr, text = "Service Name:")
-    inputEntry1_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
-    textBox2_label = Label(windowAddServiceMgr, text = "Ports (comma separated):")
-    inputEntry2_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
-    textBox3_label = Label(windowAddServiceMgr, text = "Username (optional):")
-    inputEntry3_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
-    textBox4_label = Label(windowAddServiceMgr, text = "Password (optional):")
-    inputEntry4_txtEnter = Entry(windowAddServiceMgr, show = "*", validate = 'key')
-    addServiceFinish_btn = Button(
-        windowAddServiceMgr, text = "Add Service",
-        command = lambda: addServiceAndCloseWindow(
-            parentClass,
-            inputEntry1_txtEnter.get(), 
-            inputEntry2_txtEnter.get(),
-            inputEntry3_txtEnter.get(),
-            inputEntry4_txtEnter.get() ))
-    textBox1_label.grid(row = 0, column = 0)
-    textBox2_label.grid(row = 1, column = 0)
-    textBox3_label.grid(row = 2, column = 0)
-    textBox4_label.grid(row = 3, column = 0)
-    inputEntry1_txtEnter.grid(row = 0, column = 1)
-    inputEntry2_txtEnter.grid(row = 1, column = 1)
-    inputEntry3_txtEnter.grid(row = 2, column = 1)
-    inputEntry4_txtEnter.grid(row = 3, column = 1)
-    addServiceFinish_btn.grid(row = 4, column = 0, columnspan = 2)
-    windowAddServiceMgr.title("Add New Service")
-    windowAddServiceMgr.mainloop()
+class ServiceManagementAddServiceWindow:
+    def __init__(self, parent):
+        windowAddServiceMgr = Tk()
+        textBox1_label = Label(windowAddServiceMgr, text = "Service Name:")
+        inputEntry1_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
+        textBox2_label = Label(windowAddServiceMgr, text = "Ports (comma separated):")
+        inputEntry2_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
+        textBox3_label = Label(windowAddServiceMgr, text = "Username (optional):")
+        inputEntry3_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
+        textBox4_label = Label(windowAddServiceMgr, text = "Password (optional):")
+        inputEntry4_txtEnter = Entry(windowAddServiceMgr, show = "*", validate = 'key')
+        addServiceFinish_btn = Button(
+            windowAddServiceMgr, text = "Add Service",
+            command = lambda: self.addServiceAndCloseWindow(
+                parent,
+                inputEntry1_txtEnter.get(), 
+                inputEntry2_txtEnter.get(),
+                inputEntry3_txtEnter.get(),
+                inputEntry4_txtEnter.get() ))
+        textBox1_label.grid(row = 0, column = 0)
+        textBox2_label.grid(row = 1, column = 0)
+        textBox3_label.grid(row = 2, column = 0)
+        textBox4_label.grid(row = 3, column = 0)
+        inputEntry1_txtEnter.grid(row = 0, column = 1)
+        inputEntry2_txtEnter.grid(row = 1, column = 1)
+        inputEntry3_txtEnter.grid(row = 2, column = 1)
+        inputEntry4_txtEnter.grid(row = 3, column = 1)
+        addServiceFinish_btn.grid(row = 4, column = 0, columnspan = 2)
+        windowAddServiceMgr.title("Add New Service")
+        windowAddServiceMgr.mainloop()
 
-def addServiceAndCloseWindow(parentClass, name, ports, user, passwd):
-    parentClass.arrayForThisSys[4][name] = [ports, user, passwd]
-    x = parentClass.services_tree.insert(
-        "", END, 
-        text = name, 
-        values = ( ports, user ))
+    def addServiceAndCloseWindow(self, parentClass, name, ports, user, passwd):
+        parentClass.arrayForThisSys[4][name] = [ports, user, passwd]
+        x = parentClass.services_tree.insert(
+            "", END, 
+            text = name, 
+            values = ( ports, user ))

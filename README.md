@@ -3,10 +3,7 @@
 ![Logo](resources/pic/logo/logoNormal.png)
 
 ### Development Checklist:
-- [ ] Put windows in classes.
-  - [x] Main window (`main.py` and `initGui()`).
-  - [x] Service Manager Window (`serviceManagementWindowConstruct()`).
-    - [ ] Add Service Window (`addServiceToHost()`).
+- [x] Put windows in classes.
 - [x] Remove client from main window.
 - [ ] Edit client. 
 - [ ] Find ways (or build a function) to refresh/update both the entire canvas and treeviews.

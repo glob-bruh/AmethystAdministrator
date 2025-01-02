@@ -1,3 +1,15 @@
+"""
+--------------------------------------------------
+AMETHYST ADMINISTRATOR
+https://github.com/glob-bruh/AmethystAdministrator
+All content licensed under BSD-3
+--------------------------------------------------
+main_window - MAIN WINDOWS PYTHON FILE:
+--------------------------------------------------
+This file contains classes for important windows. 
+--------------------------------------------------
+"""
+
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
@@ -82,14 +94,14 @@ class MainWindow:
         aboutTheProgram_btn = Button(win, text=f"About", command=lambda: AboutTheProgramWindow(self.program_name))
         Grid.grid_rowconfigure(win, index=0, weight=1)
         Grid.grid_columnconfigure(win, index=0, weight=1)
-        canvas.grid(row=0, column=0, rowspan=5, sticky="nsew")
-        self.hosts_tree.grid(row=5, column=0, columnspan=2, rowspan=4, sticky="nsew")
+        canvas.grid(row=0, column=0, rowspan=6, sticky="nsew")
+        self.hosts_tree.grid(row=6, column=0, columnspan=2, rowspan=4, sticky="nsew")
         ipAddr_lbl.grid(row=1, column=1)
         self.ip_text.grid(row=2, column=1)
         hostType_drop.grid(row=3, column=1)
         self.addHost_btn.grid(row=4, column=1)
-        removeHost_btn.grid(row=3, column=1)
-        aboutTheProgram_btn.grid(row=9, column=0)
+        removeHost_btn.grid(row=5, column=1)
+        aboutTheProgram_btn.grid(row=10, column=0)
         self.pgrmLogo_ico = ImageTk.PhotoImage( Image.open("resources/pic/logo/logoNormal.ico") )
         win.wm_iconphoto(False, self.pgrmLogo_ico)
         win.title(f"{self.program_name}")
@@ -97,25 +109,29 @@ class MainWindow:
 class AboutTheProgramWindow:
     def __init__(self, program_name):
         win = Toplevel()
-        title_txt = Label(win, text = f"{program_name.upper()}", font = ("", 20, "bold"))
-        pgrmLogo_png = ImageTk.PhotoImage( Image.open("resources/pic/logo/logoNormal.png") )
+        title_txt = Label(win, text = program_name.upper(), font = ("", 20, "bold"))
+        x = Image.open("resources/pic/logo/logoNormal.ico")
+        x = x.resize( (125, 125) )
+        pgrmLogo_png = ImageTk.PhotoImage(x)
         logo_lbl = Label(win, image = pgrmLogo_png)
         descText = ""
         try:
             with open("LICENSE", "r") as f:
                 for x in f:
                     descText += f"{x.strip()}\n"
-        except OSError as e:
-            descText = "YOU HAVE BEEN SCAMMED! WHERE IS THE LICENSE FILE?"
+        except OSError:
+            descText = dedent(
+                """
+                YOU HAVE BEEN SCAMMED! WHERE IS THE LICENSE FILE?
+                You should email me regarding how you acquired this copy of 
+                Amethyst Administrator and why the license is not included.
+                """)
         aboutDesc_lbl = Label(win, text = descText)
         aboutDescLink1_lbl = Label(win, text = "GitHub Page", fg = "blue", cursor = "hand2")
-        aboutDescLink1_lbl.bind("<Button-1>", lambda e: self.openLink("https://github.com/glob-bruh/AmethystAdministrator"))
+        aboutDescLink1_lbl.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator") )
         title_txt.grid(row=0, column=0)
         logo_lbl.grid(row=1, column=0)
         aboutDesc_lbl.grid(row=2, column=0)
         aboutDescLink1_lbl.grid(row=3, column=0)
         win.title(f"About {program_name}")
         win.mainloop()
-
-    def openLink(self, url):
-        webbrowser.open_new(url)
