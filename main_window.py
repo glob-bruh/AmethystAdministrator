@@ -22,6 +22,7 @@ import webbrowser
 import canvasController as cc
 import servicesManager as svMgr
 import networkVerify as netV
+import editHost as modHost
 
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
@@ -90,17 +91,20 @@ class MainWindow:
             *["workstation", "server", "router"])
         self.addHost_btn = Button(win, width=tkDefWidth, text="Add Host", command=lambda: self.addHost(canvas))
         removeHost_btn = Button(win, width=tkDefWidth, text="Remove Host", command=lambda: self.removeHost())
+        editHost_btn = Button(win, width=tkDefWidth, text="Edit Host", command=lambda: 
+            modHost.EditHostWindow(self.host_array, self.hosts_tree.item( self.hosts_tree.focus() )["text"]))
         aboutTheProgram_btn = Button(win, text=f"About", command=lambda: AboutTheProgramWindow(self.program_name))
         Grid.grid_rowconfigure(win, index=0, weight=1)
         Grid.grid_columnconfigure(win, index=0, weight=1)
-        canvas.grid(row=0, column=0, rowspan=6, sticky="nsew")
-        self.hosts_tree.grid(row=6, column=0, columnspan=2, rowspan=4, sticky="nsew")
+        canvas.grid(row=0, column=0, rowspan=7, sticky="nsew")
+        self.hosts_tree.grid(row=7, column=0, columnspan=2, rowspan=4, sticky="nsew")
         ipAddr_lbl.grid(row=1, column=1)
         self.ip_text.grid(row=2, column=1)
         hostType_drop.grid(row=3, column=1)
         self.addHost_btn.grid(row=4, column=1)
         removeHost_btn.grid(row=5, column=1)
-        aboutTheProgram_btn.grid(row=10, column=0)
+        editHost_btn.grid(row=6, column=1)
+        aboutTheProgram_btn.grid(row=11, column=0)
         self.pgrmLogo_ico = ImageTk.PhotoImage( Image.open("resources/pic/logo/logoNormal.ico") )
         win.wm_iconphoto(False, self.pgrmLogo_ico)
         win.title(f"{self.program_name}")
@@ -109,8 +113,7 @@ class AboutTheProgramWindow:
     def __init__(self, program_name):
         win = Toplevel()
         title_txt = Label(win, text = program_name.upper(), font = ("", 20, "bold"))
-        x = Image.open("resources/pic/logo/logoNormal.ico")
-        x = x.resize( (125, 125) )
+        x = Image.open("resources/pic/logo/logoNormal.ico").resize( (125, 125) )
         pgrmLogo_png = ImageTk.PhotoImage(x)
         logo_lbl = Label(win, image = pgrmLogo_png)
         descText = ""
@@ -119,18 +122,16 @@ class AboutTheProgramWindow:
                 for x in f:
                     descText += f"{x.strip()}\n"
         except OSError:
-            descText = dedent(
-                """
+            descText = dedent("""
                 YOU HAVE BEEN SCAMMED! WHERE IS THE LICENSE FILE?
                 You should email me regarding how you acquired this copy of 
                 Amethyst Administrator and why the license is not included.
                 """)
         aboutDesc_lbl = Label(win, text = descText)
-        aboutDescLink1_lbl = Label(win, text = "GitHub Page", fg = "blue", cursor = "hand2")
-        aboutDescLink1_lbl.bind("<Button-1>", lambda e: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
+        openGithub_btn = Button(win, text = "GitHub Page", cursor = "hand2", command = lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
         title_txt.grid(row=0, column=0)
         logo_lbl.grid(row=1, column=0)
         aboutDesc_lbl.grid(row=2, column=0)
-        aboutDescLink1_lbl.grid(row=3, column=0)
+        openGithub_btn.grid(row=3, column=0)
         win.title(f"About {program_name}")
         win.mainloop()
