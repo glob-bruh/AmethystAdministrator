@@ -19,7 +19,7 @@ class icmpPingSend():
     def __init__():
         print("based")
 
-class pinger(th.Thread): #for some reason target doesnt match when more than one on canvas - MENU IN GENERAL ISSUE !!! ADD IP VIEW TO TOP OF MENU TO KNOW WHO ITS FOR
+class pinger(th.Thread):
     def __init__(self, ip):
         self.target = ip
         th.Thread.__init__(self)

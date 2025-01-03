@@ -17,12 +17,12 @@ import sys
 from matplotlib import font_manager
 from PIL import Image, ImageTk, ImageFont, ImageDraw
 
-#import main as m
 import servicesManager as svMgr
 import networkPinger as netPing
 
 class hostCanvas():
     def __init__(self, hArr, win, c, ip, src):
+        # do note that the random number image ident will eventually cause collisions
         self.win = win
         self.hostArr = hArr
         self.canvas = c
@@ -43,10 +43,10 @@ class hostCanvas():
         x.text((0, imgHeight - 25), ip, (255,255,255), font = font)
         image = ImageTk.PhotoImage(image)
         setattr(c, i, image)
-        self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable"))
+        self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable", i))
         c.tag_bind("movable", "<ButtonPress-1>", self.imgMoveStart)
         c.tag_bind("movable", "<ButtonRelease-1>", self.imgMoveStop)
-        c.tag_bind("movable", "<Button-3>", self.imgContextMenu) #  WHEN CLICKED IT WILL DO THE TOPMOST ASSET, NOT THE ACTUAL ONE BEING CLICKED! NEEDS TO BE FIXED!
+        c.tag_bind(i, "<Button-3>", self.imgContextMenu)
         c.tag_bind("movable", "<B1-Motion>", self.imgMove)
 
     def imgMoveStart(self, event):
@@ -88,8 +88,8 @@ def removeHostFromCanvas(host):
 def genImgDeviceLookup():
     return [
         ["workstation", "wstn"],
-        ["server", "srvr"],
-        ["router", "rter"]
+        ["server",      "srvr"],
+        ["router",      "rter"]
     ]
 
 def imgToDevice(img):
