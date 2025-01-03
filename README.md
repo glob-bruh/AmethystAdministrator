@@ -23,8 +23,11 @@
 - [ ] Subnet calculations/processing.
 - [ ] IP address calculations/processing.
   - [x] IPv4 address valid verify (to make sure entered IP's are actual IP address).
-- [ ] Auto ping clients and show results.
+- [ ] Auto ping clients and show results (https://denizhalil.com/2024/04/06/sending-icmp-packets-with-python-socket-adventure-in-signaling/).
   - [x] Contain in its own classed thread.
+  - [ ] Program can send a ping.
+  - [ ] Program can revieve and read a ping.
+  - [ ] Ping statistics are functional and can be displayed.
 - [ ] TkInter terminal for ssh/telnet/terminal connections (worst case scenario launch a new term on the sys and run command).
 - [x] Come up with flashy name (since its a "purple-team" tool perhaps something with "amethyst" in it).
 - [ ] Secure password storage (in memory and on disk).
