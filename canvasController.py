@@ -17,12 +17,13 @@ import sys
 from matplotlib import font_manager
 from PIL import Image, ImageTk, ImageFont, ImageDraw
 
-#import main as m
 import servicesManager as svMgr
 import networkPinger as netPing
+import editHost as modHost
 
 class hostCanvas():
     def __init__(self, hArr, win, c, ip, src):
+        # do note that the random number image ident will eventually cause collisions
         self.win = win
         self.hostArr = hArr
         self.canvas = c
@@ -43,10 +44,10 @@ class hostCanvas():
         x.text((0, imgHeight - 25), ip, (255,255,255), font = font)
         image = ImageTk.PhotoImage(image)
         setattr(c, i, image)
-        self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable"))
+        self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable", i))
         c.tag_bind("movable", "<ButtonPress-1>", self.imgMoveStart)
         c.tag_bind("movable", "<ButtonRelease-1>", self.imgMoveStop)
-        c.tag_bind("movable", "<Button-3>", self.imgContextMenu)
+        c.tag_bind(i, "<Button-3>", self.imgContextMenu)
         c.tag_bind("movable", "<B1-Motion>", self.imgMove)
 
     def imgMoveStart(self, event):
@@ -68,13 +69,15 @@ class hostCanvas():
 
     def imgContextMenu(self, event):
         contextMenu = Menu(self.win, tearoff=0)
+        contextMenu.add_command( label = f"IP Address: {self.ip}", command = lambda: modHost.EditHostWindow(self.hostArr, self.ip))
+        contextMenu.add_separator()
         contextMenu.add_command( label = "Connect via Terminal" )
         contextMenu.add_command( label = "Connect via Remote Desktop" )
         contextMenu.add_command( label = "Remote Administration Tools" )
         contextMenu.add_separator()
         contextMenu.add_command( label = "Auto-ping: OFF", command = lambda: netPing.pinger(self.ip) )
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Service Manager", command =  lambda: svMgr.serviceManagementWindowConstruct(self.hostArr, self.ip) )
+        contextMenu.add_command( label = "Service Manager", command =  lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip, 15) )
         contextMenu.add_command( label = "Browse Files")
         contextMenu.add_separator()
         contextMenu.add_command( label = "Close Menu" )
@@ -86,8 +89,8 @@ def removeHostFromCanvas(host):
 def genImgDeviceLookup():
     return [
         ["workstation", "wstn"],
-        ["server", "srvr"],
-        ["router", "rter"]
+        ["server",      "srvr"],
+        ["router",      "rter"]
     ]
 
 def imgToDevice(img):
