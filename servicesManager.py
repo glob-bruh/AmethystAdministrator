@@ -27,6 +27,7 @@ class ServiceManagementWindow:
                 self.arrayForThisSys = i
         if len(self.arrayForThisSys) != 0:
             print(self.arrayForThisSys)
+            winHead_lbl = Label(self.window_serviceManage, text = f"SERVICES FOR {ip2find}", font=("", 17, "bold"))
             self.services_tree = ttk.Treeview(self.window_serviceManage, columns=["port", "username"])
             self.services_tree.heading("#0", text = "Name")
             self.services_tree.heading("port", text = "Port")
@@ -36,10 +37,11 @@ class ServiceManagementWindow:
             modifyService_btn = Button(self.window_serviceManage, text="Edit Service", width = self.defaultWidth, command=lambda: modifyServiceFromHost())
             Grid.grid_rowconfigure(self.window_serviceManage, index=0, weight=1)
             Grid.grid_columnconfigure(self.window_serviceManage, index=0, weight=1)
-            self.services_tree.grid(row = 0, column = 0, rowspan = 5, sticky="nsew")
-            addService_btn.grid(row = 1, column = 1)
-            removeService_btn.grid(row = 2, column = 1)
-            modifyService_btn.grid(row = 3, column = 1)
+            winHead_lbl.grid(row=0, column=0, columnspan=5)
+            self.services_tree.grid(row = 1, column = 0, rowspan = 5, sticky="nsew")
+            addService_btn.grid(row = 2, column = 1)
+            removeService_btn.grid(row = 3, column = 1)
+            modifyService_btn.grid(row = 4, column = 1)
             self.window_serviceManage.title(f"{self.arrayForThisSys[0]} - Service Manager")
             for i in self.arrayForThisSys[4]:
                 # .insert(<PARENT ITEM>, <POSITION/INDEX>)
@@ -55,6 +57,7 @@ class ServiceManagementWindow:
 class ServiceManagementAddServiceWindow:
     def __init__(self, parent):
         windowAddServiceMgr = Tk()
+        winHead_lbl = Label(windowAddServiceMgr, text = f"ADD NEW SERVICE", font=("", 17, "bold"))
         textBox1_label = Label(windowAddServiceMgr, text = "Service Name:")
         inputEntry1_txtEnter = Entry(windowAddServiceMgr, validate = 'key')
         textBox2_label = Label(windowAddServiceMgr, text = "Ports (comma separated):")
@@ -71,15 +74,16 @@ class ServiceManagementAddServiceWindow:
                 inputEntry2_txtEnter.get(),
                 inputEntry3_txtEnter.get(),
                 inputEntry4_txtEnter.get() ))
-        textBox1_label.grid(row = 0, column = 0)
-        textBox2_label.grid(row = 1, column = 0)
-        textBox3_label.grid(row = 2, column = 0)
-        textBox4_label.grid(row = 3, column = 0)
-        inputEntry1_txtEnter.grid(row = 0, column = 1)
-        inputEntry2_txtEnter.grid(row = 1, column = 1)
-        inputEntry3_txtEnter.grid(row = 2, column = 1)
-        inputEntry4_txtEnter.grid(row = 3, column = 1)
-        addServiceFinish_btn.grid(row = 4, column = 0, columnspan = 2)
+        winHead_lbl.grid(row=0, column=0, columnspan=2)
+        textBox1_label.grid(row=1, column=0)
+        textBox2_label.grid(row=2, column=0)
+        textBox3_label.grid(row=3, column=0)
+        textBox4_label.grid(row=4, column=0)
+        inputEntry1_txtEnter.grid(row=1, column=1)
+        inputEntry2_txtEnter.grid(row=2, column=1)
+        inputEntry3_txtEnter.grid(row=3, column=1)
+        inputEntry4_txtEnter.grid(row=4, column=1)
+        addServiceFinish_btn.grid(row=5, column=0, columnspan=2)
         windowAddServiceMgr.title("Add New Service")
         windowAddServiceMgr.mainloop()
 
@@ -88,4 +92,5 @@ class ServiceManagementAddServiceWindow:
         x = parentClass.services_tree.insert(
             "", END, 
             text = name, 
-            values = ( ports, user ))
+            values = ( ports, user ),
+            image = PhotoImage(file = "resources/pic/icons/serviceGear.png"))

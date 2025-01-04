@@ -84,7 +84,7 @@ class MainWindow:
         self.hosts_tree.heading("isControllable", text="Controllable")
         ipAddr_lbl = Label(win, width = tkDefWidth, text = "IP Address:")
         self.ip_text = Entry(win, width=tkDefWidth, validate="key")
-        self.host_type_drop_val = StringVar()
+        self.host_type_drop_val = StringVar(win)
         self.host_type_drop_val.set("Select Client Type")
         hostType_drop = OptionMenu(
             win, self.host_type_drop_val,
@@ -112,7 +112,7 @@ class MainWindow:
 class AboutTheProgramWindow:
     def __init__(self, program_name):
         win = Toplevel()
-        title_txt = Label(win, text = program_name.upper(), font = ("", 20, "bold"))
+        title_txt = Label(win, text = program_name.upper(), font = ("", 17, "bold"))
         x = Image.open("resources/pic/logo/logoNormal.ico").resize( (125, 125) )
         pgrmLogo_png = ImageTk.PhotoImage(x)
         logo_lbl = Label(win, image = pgrmLogo_png)
