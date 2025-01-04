@@ -21,6 +21,7 @@ import random
 import canvasController as cc
 import networkVerify as netV
 
+
 class EditHostWindow:
     def __init__(self, hArr, ip):
         self.win = Tk()

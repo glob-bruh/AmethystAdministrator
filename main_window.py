@@ -24,6 +24,7 @@ import servicesManager as svMgr
 import networkVerify as netV
 import editHost as modHost
 
+
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
         self.window_main = window_main

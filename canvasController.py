@@ -21,6 +21,7 @@ import servicesManager as svMgr
 import networkPinger as netPing
 import editHost as modHost
 
+
 class hostCanvas():
     def __init__(self, hArr, win, c, ip, src):
         # do note that the random number image ident will eventually cause collisions

@@ -14,6 +14,7 @@ its related functions and sub-windows.
 from tkinter import *
 from tkinter import ttk
 
+
 class ServiceManagementWindow:
     def __init__(self, x, ip2find, tkDefWidth):
         self.window_serviceManage = Toplevel()
@@ -51,6 +52,7 @@ class ServiceManagementWindow:
                     values = ( t1[0], t1[1] ),
                     image = t2)
             self.window_serviceManage.mainloop()
+
 
 class ServiceManagementAddServiceWindow:
     def __init__(self, parent):

@@ -11,7 +11,7 @@ This file is the first thing executed.
 """
 
 from main_window import MainWindow
-from tkinter import * # testing
+from tkinter import *
 
 if __name__ == "__main__":
     window_instance = MainWindow()

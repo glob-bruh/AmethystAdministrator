@@ -16,8 +16,9 @@ import socket
 import struct
 
 class icmpPingSend():
-    def __init__():
+    def __init__(self):
         print("based")
+
 
 class pinger(th.Thread):
     def __init__(self, ip):
