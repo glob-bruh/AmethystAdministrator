@@ -19,10 +19,10 @@ import threading as th
 import random
 import webbrowser
 
-import canvasController as cc
-import servicesManager as svMgr
-import networkVerify as netV
-import editHost as modHost
+import canvas_controller as cc
+import services_manager as svMgr
+import network_verify as netV
+import edit_host as modHost
 
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
@@ -115,7 +115,7 @@ class AboutTheProgramWindow:
         title_txt = Label(win, text = program_name.upper(), font = ("", 17, "bold"))
         x = Image.open("resources/pic/logo/logoNormal.ico").resize( (125, 125) )
         pgrmLogo_png = ImageTk.PhotoImage(x)
-        logo_lbl = Label(win, image = pgrmLogo_png)
+        logo_lbl = Label(win, image=pgrmLogo_png)
         descText = ""
         try:
             with open("LICENSE", "r") as f:
@@ -127,8 +127,8 @@ class AboutTheProgramWindow:
                 You should email me regarding how you acquired this copy of 
                 Amethyst Administrator and why the license is not included.
                 """)
-        aboutDesc_lbl = Label(win, text = descText)
-        openGithub_btn = Button(win, text = "GitHub Page", cursor = "hand2", command = lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
+        aboutDesc_lbl = Label(win, text=descText)
+        openGithub_btn = Button(win, text="GitHub Page", cursor="hand2", command=lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
         title_txt.grid(row=0, column=0)
         logo_lbl.grid(row=1, column=0)
         aboutDesc_lbl.grid(row=2, column=0)

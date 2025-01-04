@@ -18,8 +18,8 @@ from textwrap import dedent
 import threading as th
 import random
 
-import canvasController as cc
-import networkVerify as netV
+import canvas_controller as cc
+import network_verify as netV
 
 class EditHostWindow:
     def __init__(self, hArr, ip):
@@ -36,7 +36,7 @@ class EditHostWindow:
             self.win, self.deviceType_drp_val,
             *["workstation", "server", "router"])
         saveEdit_btn = Button(self.win, text="Save and Close")
-        cancelEdit_btn = Button(self.win, text="Cancel")
+        cancelEdit_btn = Button(self.win, text="Cancel", command=lambda: self.win.destroy())
         winHead_lbl.grid(row=0, column=0, columnspan=2)
         hostname_lbl.grid(row=1, column=0)
         hostname_txt.grid(row=1, column=1)

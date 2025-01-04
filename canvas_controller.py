@@ -17,9 +17,9 @@ import sys
 from matplotlib import font_manager
 from PIL import Image, ImageTk, ImageFont, ImageDraw
 
-import servicesManager as svMgr
-import networkPinger as netPing
-import editHost as modHost
+import services_manager as svMgr
+import network_pinger as netPing
+import edit_host as modHost
 
 class hostCanvas():
     def __init__(self, hArr, win, c, ip, src):

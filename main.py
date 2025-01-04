@@ -12,7 +12,7 @@ This file is the first thing executed.
 
 import sys
 from main_window import MainWindow
-from tkinter import * # testing
+from tkinter import *
 from textwrap import dedent
 
 def showBanner():

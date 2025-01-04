@@ -42,7 +42,7 @@ class ServiceManagementWindow:
             addService_btn.grid(row = 2, column = 1)
             removeService_btn.grid(row = 3, column = 1)
             modifyService_btn.grid(row = 4, column = 1)
-            self.window_serviceManage.title(f"{self.arrayForThisSys[0]} - Service Manager")
+            self.window_serviceManage.title(f"Service Manager - {self.arrayForThisSys[0]}")
             for i in self.arrayForThisSys[4]:
                 # .insert(<PARENT ITEM>, <POSITION/INDEX>)
                 t1 = self.arrayForThisSys[4][i]
