@@ -107,7 +107,7 @@ class MainWindow:
         aboutTheProgram_btn.grid(row=11, column=0)
         self.pgrmLogo_ico = ImageTk.PhotoImage( Image.open("resources/pic/logo/logoNormal.ico") )
         win.wm_iconphoto(False, self.pgrmLogo_ico)
-        win.title(f"{self.program_name}")
+        win.title(self.program_name)
 
 class AboutTheProgramWindow:
     def __init__(self, program_name):
