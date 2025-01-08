@@ -51,7 +51,7 @@ class MainWindow:
                     "", END,
                     text = x2,
                     values = (t, 0, "Pinger not running", False))
-                self.host_array.append( [ x2, x4, x1, x3, {} ] )
+                self.host_array.append( [ x2, [x4, ""], x1, x3, {} ] )
             else:
                 # https://docs.python.org/3/library/tkinter.messagebox.html
                 messagebox.showwarning(title = "Not a Valid IPv4", message = f"The text \"{x2}\" is not a valid IPv4 address.")

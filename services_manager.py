@@ -65,10 +65,6 @@ class ServiceManagementWindow:
         x = messagebox.askquestion(title = "Remove Host?", message = f"Are you sure you want to delete the host \"{serviceCurSel}\"?")
         self.window_serviceManage.deiconify()
         if x == "yes" and serviceCurSel != "":
-            i = 0
-            for t in self.arrayForThisSys[4]:
-                if t == serviceCurSel:  break
-                else:                   i += 1
             self.services_tree.delete( self.services_tree.selection()[0] )
             del self.arrayForThisSys[4][serviceCurSel]
 

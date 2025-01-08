@@ -6,7 +6,7 @@
 
 - [x] Put windows in classes.
 - [x] Remove client from main window.
-- [ ] Edit client. 
+- [x] Edit client. 
 - [ ] Find ways (or build a function) to refresh/update both the entire canvas and treeviews.
 - [ ] Finish services/TCP ports manager.
   - [x] Add service/port.
