@@ -19,10 +19,10 @@ import threading as th
 import random
 import webbrowser
 
-import canvasController as cc
-import servicesManager as svMgr
-import networkVerify as netV
-import editHost as modHost
+import canvas_controller as cc
+import services_manager as svMgr
+import network_verify as netV
+import edit_host as modHost
 
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
@@ -51,7 +51,7 @@ class MainWindow:
                     "", END,
                     text = x2,
                     values = (t, 0, "Pinger not running", False))
-                self.host_array.append( [ x2, x4, x1, x3, {} ] )
+                self.host_array.append( [ x2, [x4, ""], x1, x3, {} ] )
             else:
                 # https://docs.python.org/3/library/tkinter.messagebox.html
                 messagebox.showwarning(title = "Not a Valid IPv4", message = f"The text \"{x2}\" is not a valid IPv4 address.")
@@ -84,7 +84,7 @@ class MainWindow:
         self.hosts_tree.heading("isControllable", text="Controllable")
         ipAddr_lbl = Label(win, width = tkDefWidth, text = "IP Address:")
         self.ip_text = Entry(win, width=tkDefWidth, validate="key")
-        self.host_type_drop_val = StringVar()
+        self.host_type_drop_val = StringVar(win)
         self.host_type_drop_val.set("Select Client Type")
         hostType_drop = OptionMenu(
             win, self.host_type_drop_val,
@@ -107,15 +107,15 @@ class MainWindow:
         aboutTheProgram_btn.grid(row=11, column=0)
         self.pgrmLogo_ico = ImageTk.PhotoImage( Image.open("resources/pic/logo/logoNormal.ico") )
         win.wm_iconphoto(False, self.pgrmLogo_ico)
-        win.title(f"{self.program_name}")
+        win.title(self.program_name)
 
 class AboutTheProgramWindow:
     def __init__(self, program_name):
         win = Toplevel()
-        title_txt = Label(win, text = program_name.upper(), font = ("", 20, "bold"))
+        title_txt = Label(win, text = program_name.upper(), font = ("", 17, "bold"))
         x = Image.open("resources/pic/logo/logoNormal.ico").resize( (125, 125) )
         pgrmLogo_png = ImageTk.PhotoImage(x)
-        logo_lbl = Label(win, image = pgrmLogo_png)
+        logo_lbl = Label(win, image=pgrmLogo_png)
         descText = ""
         try:
             with open("LICENSE", "r") as f:
@@ -127,8 +127,8 @@ class AboutTheProgramWindow:
                 You should email me regarding how you acquired this copy of 
                 Amethyst Administrator and why the license is not included.
                 """)
-        aboutDesc_lbl = Label(win, text = descText)
-        openGithub_btn = Button(win, text = "GitHub Page", cursor = "hand2", command = lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
+        aboutDesc_lbl = Label(win, text=descText)
+        openGithub_btn = Button(win, text="GitHub Page", cursor="hand2", command=lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
         title_txt.grid(row=0, column=0)
         logo_lbl.grid(row=1, column=0)
         aboutDesc_lbl.grid(row=2, column=0)

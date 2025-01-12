@@ -17,9 +17,9 @@ import sys
 from matplotlib import font_manager
 from PIL import Image, ImageTk, ImageFont, ImageDraw
 
-import servicesManager as svMgr
-import networkPinger as netPing
-import editHost as modHost
+import services_manager as svMgr
+import network_pinger as netPing
+import edit_host as modHost
 
 class hostCanvas():
     def __init__(self, hArr, win, c, ip, src):
@@ -41,7 +41,7 @@ class hostCanvas():
         # font = ImageFont.truetype(<font-file>, <font-size>)
         font = ImageFont.truetype(file, 20)
         # x.text((x, y),"Sample Text",(r,g,b))
-        x.text((0, imgHeight - 25), ip, (255,255,255), font = font)
+        x.text((0, imgHeight - 25), ip, (255,255,255), font=font)
         image = ImageTk.PhotoImage(image)
         setattr(c, i, image)
         self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable", i))
