@@ -7,7 +7,7 @@
 - [x] Put windows in classes.
 - [x] Remove client from main window.
 - [x] Edit client. 
-- [ ] Find ways (or build a function) to refresh/update both the entire canvas and treeviews.
+- [ ] Find ways (or build a function) to refresh/update both the entire canvas and TreeViews.
 - [ ] Finish services/TCP ports manager.
   - [x] Add service/port.
   - [x] Remove service/port.
@@ -21,6 +21,7 @@
 - [ ] Save/load functionality.
   - [ ] Export/Save to file.
   - [ ] Load file/data.
+- [ ] Lines between hosts on canvas. 
 - [ ] Subnet calculations/processing.
 - [ ] IP address calculations/processing.
   - [x] IPv4 address valid verify (to make sure entered IP's are actual IP address).
