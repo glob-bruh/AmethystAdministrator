@@ -19,7 +19,7 @@ from PIL import Image, ImageTk, ImageFont, ImageDraw
 
 import services_manager as svMgr
 import network_pinger as netPing
-import edit_host as modHost
+import edit_host as eHost
 
 class hostCanvas():
     def __init__(self, hArr, win, c, ip, src):
@@ -69,7 +69,7 @@ class hostCanvas():
 
     def imgContextMenu(self, event):
         contextMenu = Menu(self.win, tearoff=0)
-        contextMenu.add_command( label = f"IP Address: {self.ip}", command = lambda: modHost.EditHostWindow(self.hostArr, self.ip))
+        contextMenu.add_command( label = f"IP Address: {self.ip}", command = lambda: eHost.EditHostWindow(self.hostArr, self.ip))
         contextMenu.add_separator()
         contextMenu.add_command( label = "Connect via Terminal" )
         contextMenu.add_command( label = "Connect via Remote Desktop" )

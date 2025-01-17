@@ -11,6 +11,7 @@ This file is the first thing executed.
 """
 
 import sys
+import random
 from main_window import MainWindow
 from tkinter import *
 from textwrap import dedent
@@ -50,9 +51,12 @@ if __name__ == "__main__":
                 showHelp()
             case "testing":
                 window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.1") ; window_instance.addHost_btn.invoke()
-                window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.2") ; window_instance.addHost_btn.invoke()
-                window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.3") ; window_instance.addHost_btn.invoke()
+                window_instance.host_array[0][1][1] = "WORKSTATION-" + str(random.randint(00000, 99999))
                 window_instance.host_array[0][4] = {'Finance SSH': ['22', 'sys', 'p@ssw0rd']}
+                window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.2") ; window_instance.addHost_btn.invoke()
+                window_instance.host_array[1][1][1] = "WORKSTATION-" + str(random.randint(00000, 99999))
                 window_instance.host_array[1][4] = {'Workshop SSH': ['22', 'sys', 'p@ssw0rd']}
+                window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.3") ; window_instance.addHost_btn.invoke()
+                window_instance.host_array[2][1][1] = "WORKSTATION-" + str(random.randint(00000, 99999))
                 window_instance.host_array[2][4] = {'Front Desk FTP': ['21', 'sys', 'p@ssw0rd']}
     window_instance.window_main.mainloop()

@@ -10,19 +10,20 @@ This file contains classes for important windows.
 --------------------------------------------------
 """
 
+import threading as th
+import random
+import webbrowser
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from textwrap import dedent
-import threading as th
-import random
-import webbrowser
+from hashlib import sha256
 
 import canvas_controller as cc
 import services_manager as svMgr
 import network_verify as netV
-import edit_host as modHost
+import edit_host as eHost
 
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
@@ -92,7 +93,7 @@ class MainWindow:
         self.addHost_btn = Button(win, width=tkDefWidth, text="Add Host", command=lambda: self.addHost(canvas))
         removeHost_btn = Button(win, width=tkDefWidth, text="Remove Host", command=lambda: self.removeHost())
         editHost_btn = Button(win, width=tkDefWidth, text="Edit Host", command=lambda: 
-            modHost.EditHostWindow(self.host_array, self.hosts_tree.item( self.hosts_tree.focus() )["text"]))
+            eHost.EditHostWindow(self.host_array, self.hosts_tree.item( self.hosts_tree.focus() )["text"]))
         aboutTheProgram_btn = Button(win, text=f"About", command=lambda: AboutTheProgramWindow(self.program_name))
         Grid.grid_rowconfigure(win, index=0, weight=1)
         Grid.grid_columnconfigure(win, index=0, weight=1)
@@ -109,6 +110,7 @@ class MainWindow:
         win.wm_iconphoto(False, self.pgrmLogo_ico)
         win.title(self.program_name)
 
+
 class AboutTheProgramWindow:
     def __init__(self, program_name):
         win = Toplevel()
@@ -118,9 +120,21 @@ class AboutTheProgramWindow:
         logo_lbl = Label(win, image=pgrmLogo_png)
         descText = ""
         try:
-            with open("LICENSE", "r") as f:
-                for x in f:
-                    descText += f"{x.strip()}\n"
+            CHANGE_ME_WITH_EXTREME_CAUTION_READ_THE_LICENSE = "c92648ad0606ef9256fd170e7c8566b1949382baff50fbfb7e4bc446dd7f54d0"
+            fileHash = sha256()
+            with open("LICENSE", "rb") as f:
+                for b in iter(lambda: f.read(4096),b""):
+                    fileHash.update(b)
+            if fileHash.hexdigest().lower() != CHANGE_ME_WITH_EXTREME_CAUTION_READ_THE_LICENSE:
+                descText = dedent("""
+                    YOU HAVE BEEN SCAMMED! SOMEONE TAMPERED WITH THE LICENSE!
+                    You should email me regarding how you acquired this copy of 
+                    Amethyst Administrator and why it has shipped with a modified license.
+                    """)
+            else:
+                with open("LICENSE", "r") as f:
+                    for x in f:
+                        descText += f"{x.strip()}\n"
         except OSError:
             descText = dedent("""
                 YOU HAVE BEEN SCAMMED! WHERE IS THE LICENSE FILE?

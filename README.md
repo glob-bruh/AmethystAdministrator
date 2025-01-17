@@ -2,6 +2,11 @@
 
 ![Logo](resources/pic/logo/logoNormal.png)
 
+### Install and Run:
+
+1) Install required libraries: `pip3 install -r requirements.txt`. 
+2) Run main: `python3 main.py`.
+
 ### Development Checklist:
 
 - [x] Put windows in classes.

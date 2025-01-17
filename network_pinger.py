@@ -16,8 +16,23 @@ import socket
 import struct
 
 class icmpPingSend():
-    def __init__():
+    def __init__(self, target):
+        self.target = target
+        self.port = None
+        self.data = b"ping pong!"
+        self.ttl = 64
+        self.icmp_id = 12345
         print("based")
+        print(f"bruh --> {self.target}")
+    
+    def sendPacket(self):
+        icmp_type = 8
+        icmp_code = 0
+        icmp_chksum = 0
+        icmp_seq = 1
+        icmp_header = struct.pack(
+            "!BBHHH", icmp_type, icmp_code, 
+            icmp_chksum, self.icmp_id, icmp_seq)
 
 class pinger(th.Thread):
     def __init__(self, ip):
@@ -26,7 +41,7 @@ class pinger(th.Thread):
         self.start()
 
     def run(self):
-        print(f"bruh --> {self.target}")
+        icmpPingSend(self.target)
 
 
 def sendPingAndProcResponse(ip):
