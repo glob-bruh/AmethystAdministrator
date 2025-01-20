@@ -24,6 +24,7 @@ import canvas_controller as cc
 import services_manager as svMgr
 import network_verify as netV
 import edit_host as eHost
+from devices.android import adb_wireless
 
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
@@ -143,9 +144,43 @@ class AboutTheProgramWindow:
                 """)
         aboutDesc_lbl = Label(win, text=descText)
         openGithub_btn = Button(win, text="GitHub Page", cursor="hand2", command=lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
-        title_txt.grid(row=0, column=0)
-        logo_lbl.grid(row=1, column=0)
-        aboutDesc_lbl.grid(row=2, column=0)
+        debugWindow_btn = Button(win, text="Debug", cursor="hand2", command=lambda: DebugWindow( program_name ))
+        title_txt.grid(row=0, column=0, columnspan=2)
+        logo_lbl.grid(row=1, column=0, columnspan=2)
+        aboutDesc_lbl.grid(row=2, column=0, columnspan=2)
         openGithub_btn.grid(row=3, column=0)
+        debugWindow_btn.grid(row=3, column=1)
         win.title(f"About {program_name}")
         win.mainloop()
+
+class DebugWindow:
+    def __init__(self, program_name):
+        win = Tk()
+        title_lbl = Label(win, text="DEBUG", font = ("", 17, "bold"))
+        warning_lbl = Label(win, text="Please use with caution!\nThese features might not work properly yet...")
+        adbDebug_lbl = Label(win, text="ADB Debug:")
+        adbIP_lbl = Label(win, text="IP:")
+        adbIpEnter_txt = Entry(win, validate="key")
+        adbConnectDevice_btn = Button(win, text="ADB CONNECT", command=lambda: self.adbGetDeviceVar( adbIpEnter_txt.get() ))
+        adbCmd_lbl = Label(win, text="CMD:")
+        adbCmdEnter_txt = Entry(win, validate="key")
+        adbRunCommand_btn = Button(win, text="ADB RUN CMD", command=lambda: self.adbRunCmd( adbCmdEnter_txt.get() ))
+        title_lbl.grid(row=0, column=0, columnspan=3)
+        warning_lbl.grid(row=1, column=0, columnspan=3)
+        ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=3)
+        adbDebug_lbl.grid(row=3, column=0)
+        adbIP_lbl.grid(row=4, column=0) ; adbIpEnter_txt.grid(row=4, column=1) ; adbConnectDevice_btn.grid(row=4, column=2)
+        adbCmd_lbl.grid(row=5, column=0) ; adbCmdEnter_txt.grid(row=5, column=1) ; adbRunCommand_btn.grid(row=5, column=2)
+        ttk.Separator(win, orient='horizontal').grid(row=6, column=0, sticky="ew", columnspan=3)
+        win.title(f"{program_name} Debug Window")
+        win.mainloop()
+
+    def adbGetDeviceVar(self, ip):
+        self.adbDevice = adb_wireless.adbSession(ip)
+        print("Done")
+        print(self.adbDevice)
+
+    def adbRunCmd(self, cmd):
+        print(f"RUN: {cmd}")
+        print(self.adbDevice)
+        self.adbDevice.sendCommand(cmd)

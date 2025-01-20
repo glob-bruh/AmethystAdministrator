@@ -57,3 +57,4 @@ class EditHostWindow:
             if x[0] == self.ip:
                 x[1][0] = cc.deviceToImg(self.deviceType_drp_val.get())
                 x[1][1] = self.hostname_txt.get()
+        self.win.destroy()
