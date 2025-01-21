@@ -4,8 +4,9 @@
 
 ### Install and Run:
 
-1) Install required libraries: `pip3 install -r requirements.txt`. 
-2) Run main: `python3 main.py`.
+1) Clone the repo: `git clone https://github.com/glob-bruh/AmethystAdministrator`.
+2) Install required libraries: `pip3 install -r requirements.txt`. 
+3) Run main: `python3 main.py`.
 
 ### Development Checklist:
 
@@ -29,14 +30,14 @@
 - [ ] Lines between hosts on canvas. 
 - [ ] Subnet calculations/processing.
 - [ ] IP address calculations/processing.
-  - [x] IPv4 address valid verify (to make sure entered IP's are actual IP address).
+  - [x] IPv4 address valid verify.
 - [ ] Auto ping clients and show results (https://denizhalil.com/2024/04/06/sending-icmp-packets-with-python-socket-adventure-in-signaling/).
   - [x] Contain in its own classed thread.
   - [ ] Program can send a ping.
   - [ ] Program can receive and read a ping.
   - [ ] Ping statistics are functional and can be displayed.
 - [ ] TkInter terminal for ssh/telnet/terminal connections (worst case scenario launch a new term on the sys and run command).
-- [x] Come up with flashy name (since its a "purple-team" tool perhaps something with "amethyst" in it).
+- [x] Come up with flashy name.
 - [ ] Secure password storage (in memory and on disk).
 - [ ] Implement the ability to connect to clients over various protocols (in order of importance):
   - [ ] Terminals - SSH and Telnet.

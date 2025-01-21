@@ -24,6 +24,7 @@ import canvas_controller as cc
 import services_manager as svMgr
 import network_verify as netV
 import edit_host as eHost
+import terminal as term
 from devices.android import adb_wireless
 
 class MainWindow:
@@ -144,27 +145,29 @@ class AboutTheProgramWindow:
                 """)
         aboutDesc_lbl = Label(win, text=descText)
         openGithub_btn = Button(win, text="GitHub Page", cursor="hand2", command=lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
-        debugWindow_btn = Button(win, text="Debug", cursor="hand2", command=lambda: DebugWindow( program_name ))
+        experimentsWindow_btn = Button(win, text="Experiments", cursor="hand2", command=lambda: ExperimentsWindow( program_name ))
         title_txt.grid(row=0, column=0, columnspan=2)
         logo_lbl.grid(row=1, column=0, columnspan=2)
         aboutDesc_lbl.grid(row=2, column=0, columnspan=2)
         openGithub_btn.grid(row=3, column=0)
-        debugWindow_btn.grid(row=3, column=1)
+        experimentsWindow_btn.grid(row=3, column=1)
         win.title(f"About {program_name}")
         win.mainloop()
 
-class DebugWindow:
+class ExperimentsWindow:
     def __init__(self, program_name):
         win = Tk()
-        title_lbl = Label(win, text="DEBUG", font = ("", 17, "bold"))
+        title_lbl = Label(win, text="EXPERIMENTS", font = ("", 17, "bold"))
         warning_lbl = Label(win, text="Please use with caution!\nThese features might not work properly yet...")
-        adbDebug_lbl = Label(win, text="ADB Debug:")
+        adbDebug_lbl = Label(win, text="Android Debug Bridge:")
         adbIP_lbl = Label(win, text="IP:")
         adbIpEnter_txt = Entry(win, validate="key")
         adbConnectDevice_btn = Button(win, text="ADB CONNECT", command=lambda: self.adbGetDeviceVar( adbIpEnter_txt.get() ))
         adbCmd_lbl = Label(win, text="CMD:")
         adbCmdEnter_txt = Entry(win, validate="key")
         adbRunCommand_btn = Button(win, text="ADB RUN CMD", command=lambda: self.adbRunCmd( adbCmdEnter_txt.get() ))
+        terminalTest_lbl = Label(win, text="Terminal:")
+        terminalTest_btn = Button(win, text="Terminal Test", command=lambda: self.newTerm())
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=3)
@@ -172,7 +175,10 @@ class DebugWindow:
         adbIP_lbl.grid(row=4, column=0) ; adbIpEnter_txt.grid(row=4, column=1) ; adbConnectDevice_btn.grid(row=4, column=2)
         adbCmd_lbl.grid(row=5, column=0) ; adbCmdEnter_txt.grid(row=5, column=1) ; adbRunCommand_btn.grid(row=5, column=2)
         ttk.Separator(win, orient='horizontal').grid(row=6, column=0, sticky="ew", columnspan=3)
-        win.title(f"{program_name} Debug Window")
+        terminalTest_lbl.grid(row=7, column=0)
+        terminalTest_btn.grid(row=7, column=1)
+        ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=3)
+        win.title(f"{program_name} Experiments")
         win.mainloop()
 
     def adbGetDeviceVar(self, ip):
@@ -184,3 +190,7 @@ class DebugWindow:
         print(f"RUN: {cmd}")
         print(self.adbDevice)
         self.adbDevice.sendCommand(cmd)
+
+    def newTerm(self):
+        print("open new term")
+        term.TerminalWindow()

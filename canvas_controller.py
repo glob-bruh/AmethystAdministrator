@@ -33,11 +33,7 @@ class hostCanvas():
         image = Image.open(f"resources/pic/devicePic/{src}.png")
         imgWidth, imgHeight = image.size
         x = ImageDraw.Draw(image)
-        match sys.platform:
-            case "linux":   file = font_manager.findfont("hack")
-            case "windows": file = font_manager.findfont("consolas")
-            case "mac":     file = font_manager.findfont("sf mono")
-            case _:         file = font_manager.findfont("sans serif")
+        file = findMonospaceFont()[1]
         # font = ImageFont.truetype(<font-file>, <font-size>)
         font = ImageFont.truetype(file, 20)
         # x.text((x, y),"Sample Text",(r,g,b))
@@ -85,6 +81,13 @@ class hostCanvas():
 
 def removeHostFromCanvas(host):
     host.canvas.delete(host.imgCanvasID)
+
+def findMonospaceFont():
+    match sys.platform:
+        case "linux":  return ["hack",       font_manager.findfont("hack")]
+        case "win32":  return ["consolas",   font_manager.findfont("consolas")]
+        case "darwin": return ["sf mono",    font_manager.findfont("sf mono")]
+        case _:        return ["sans serif", font_manager.findfont("sans serif")]
 
 def genImgDeviceLookup():
     return [
