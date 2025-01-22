@@ -35,10 +35,10 @@ class EditHostWindow:
             for x in self.array:
                 if x[0] == ip:
                     self.hostname_txt.insert(0, x[1][1])
-                    self.deviceType_drp_val.set( cc.imgToDevice(x[1][0]) )
+                    self.deviceType_drp_val.set(x[1][0])
             deviceType_drp = OptionMenu(
                 self.win, self.deviceType_drp_val,
-                *["workstation", "server", "router"])
+                *["workstation", "server", "router", "smartphone"])
             saveEdit_btn = Button(self.win, text="Save and Close", command=lambda: self.saveEditChanges())
             cancelEdit_btn = Button(self.win, text="Cancel", command=lambda: self.win.destroy())
             winHead_lbl.grid(row=0, column=0, columnspan=2)
@@ -55,6 +55,6 @@ class EditHostWindow:
         # Canvas and TreeView needs to be updated after these are set.
         for x in self.array:
             if x[0] == self.ip:
-                x[1][0] = cc.deviceToImg(self.deviceType_drp_val.get())
+                x[1][0] = self.deviceType_drp_val.get()
                 x[1][1] = self.hostname_txt.get()
         self.win.destroy()

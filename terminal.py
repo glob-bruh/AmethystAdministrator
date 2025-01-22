@@ -41,7 +41,7 @@ class TerminalWindow:
         win.mainloop()
 
     def execCmdShowOut(self, command):
-        #result = os.popen(f"{command} 2>&1").read()
+        #result = os.popen(f"{command} 2>&1").read() <-- NOT CROSS PLATFORM
         result = os.popen(command).read()
         self.cmdOut_lbl.configure(state="normal")
         self.cmdOut_lbl.insert(END, f"\n>>> {command}\n{result}")

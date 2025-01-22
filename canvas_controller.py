@@ -88,24 +88,3 @@ def findMonospaceFont():
         case "win32":  return ["consolas",   font_manager.findfont("consolas")]
         case "darwin": return ["sf mono",    font_manager.findfont("sf mono")]
         case _:        return ["sans serif", font_manager.findfont("sans serif")]
-
-def genImgDeviceLookup():
-    return [
-        ["workstation", "wstn"],
-        ["server",      "srvr"],
-        ["router",      "rter"]
-    ]
-
-def imgToDevice(img):
-    x = genImgDeviceLookup()
-    for i in x:
-        if i[1] == img:
-            return i[0]
-    return "???"
-
-def deviceToImg(device):
-    x = genImgDeviceLookup()
-    for i in x:
-        if i[0] == device:
-            return i[1]
-    return "???"

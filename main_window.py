@@ -44,16 +44,13 @@ class MainWindow:
                 messagebox.showwarning(title = "Host Already Exists", message = f"Host with the IP address of \"{x2}\" already exists.")
                 x = True
         if x == False:
-            x4 = cc.deviceToImg(self.host_type_drop_val.get())
-            if x4 == "???":
-                x4 = "wstn"
-            t = cc.imgToDevice(x4)
+            x4 = self.host_type_drop_val.get()
             if netV.validateIPv4(x2) == True:
                 x1 = cc.hostCanvas(self.host_array, self.window_main, c, x2, x4)
                 x3 = self.hosts_tree.insert(
                     "", END,
                     text = x2,
-                    values = (t, 0, "Pinger not running", False))
+                    values = (x4, 0, "Pinger not running", False))
                 self.host_array.append( [ x2, [x4, ""], x1, x3, {} ] )
             else:
                 # https://docs.python.org/3/library/tkinter.messagebox.html
@@ -88,10 +85,10 @@ class MainWindow:
         ipAddr_lbl = Label(win, width=tkDefWidth, text = "IP Address:")
         self.ip_text = Entry(win, width=tkDefWidth, validate="key")
         self.host_type_drop_val = StringVar(win)
-        self.host_type_drop_val.set("Select Client Type")
+        self.host_type_drop_val.set("workstation")
         hostType_drop = OptionMenu(
             win, self.host_type_drop_val,
-            *["workstation", "server", "router"])
+            *["workstation", "server", "router", "smartphone"])
         self.addHost_btn = Button(win, width=tkDefWidth, text="Add Host", command=lambda: self.addHost(canvas))
         removeHost_btn = Button(win, width=tkDefWidth, text="Remove Host", command=lambda: self.removeHost())
         editHost_btn = Button(win, width=tkDefWidth, text="Edit Host", command=lambda: 
