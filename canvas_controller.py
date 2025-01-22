@@ -84,7 +84,8 @@ def removeHostFromCanvas(host):
 
 def findMonospaceFont():
     match sys.platform:
-        case "linux":  return ["hack",       font_manager.findfont("hack")]
-        case "win32":  return ["consolas",   font_manager.findfont("consolas")]
-        case "darwin": return ["sf mono",    font_manager.findfont("sf mono")]
-        case _:        return ["sans serif", font_manager.findfont("sans serif")]
+        case "linux":  x = "hack"
+        case "win32":  x = "consolas"
+        case "darwin": x = "sf mono"
+        case _:        x = "sans serif"
+    return [x, font_manager.findfont(x)]
