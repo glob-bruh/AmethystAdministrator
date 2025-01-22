@@ -85,7 +85,7 @@ class MainWindow:
         self.hosts_tree.heading("numServ", text="Number of Services")
         self.hosts_tree.heading("isOnline", text="Pingable")
         self.hosts_tree.heading("isControllable", text="Controllable")
-        ipAddr_lbl = Label(win, width = tkDefWidth, text = "IP Address:")
+        ipAddr_lbl = Label(win, width=tkDefWidth, text = "IP Address:")
         self.ip_text = Entry(win, width=tkDefWidth, validate="key")
         self.host_type_drop_val = StringVar(win)
         self.host_type_drop_val.set("Select Client Type")
@@ -193,4 +193,4 @@ class ExperimentsWindow:
 
     def newTerm(self):
         print("open new term")
-        term.TerminalWindow()
+        term.TerminalWindow("TEST WINDOW")

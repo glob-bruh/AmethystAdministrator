@@ -65,18 +65,18 @@ class hostCanvas():
 
     def imgContextMenu(self, event):
         contextMenu = Menu(self.win, tearoff=0)
-        contextMenu.add_command( label = f"IP Address: {self.ip}", command = lambda: eHost.EditHostWindow(self.hostArr, self.ip))
+        contextMenu.add_command(label=f"IP Address: {self.ip}", command=lambda: eHost.EditHostWindow(self.hostArr, self.ip))
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Connect via Terminal" )
-        contextMenu.add_command( label = "Connect via Remote Desktop" )
-        contextMenu.add_command( label = "Remote Administration Tools" )
+        contextMenu.add_command(label="Connect via Terminal")
+        contextMenu.add_command(label="Connect via Remote Desktop")
+        contextMenu.add_command(label="Remote Administration Tools")
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Auto-ping: OFF", command = lambda: netPing.pinger(self.ip) )
+        contextMenu.add_command(label="Auto-ping: OFF", command=lambda: netPing.pinger(self.ip))
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Service Manager", command =  lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip, 15) )
-        contextMenu.add_command( label = "Browse Files")
+        contextMenu.add_command(label="Service Manager", command=lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip, 15))
+        contextMenu.add_command(label="Browse Files")
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Close Menu" )
+        contextMenu.add_command(label = "Close Menu")
         contextMenu.tk_popup(event.x_root, event.y_root)
 
 def removeHostFromCanvas(host):
