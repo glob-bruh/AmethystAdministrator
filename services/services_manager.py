@@ -35,7 +35,7 @@ class ServiceManagementWindow:
             self.services_tree.heading("username", text = "Username")
             addService_btn = Button(self.window_serviceManage, text="Add Service", width = self.defaultWidth, command=lambda: ServiceManagementAddServiceWindow(self))
             removeService_btn = Button(self.window_serviceManage, text="Remove Service", width = self.defaultWidth, command=lambda: self.removeServiceFromHost())
-            modifyService_btn = Button(self.window_serviceManage, text="Edit Service", width = self.defaultWidth, command=lambda: modifyServiceFromHost())
+            modifyService_btn = Button(self.window_serviceManage, text="Edit Service", width = self.defaultWidth, command=lambda: ServiceManagementEditServiceWindow(self))
             Grid.grid_rowconfigure(self.window_serviceManage, index=0, weight=1)
             Grid.grid_columnconfigure(self.window_serviceManage, index=0, weight=1)
             winHead_lbl.grid(row=0, column=0, columnspan=5)
@@ -112,3 +112,8 @@ class ServiceManagementAddServiceWindow:
             "", END, 
             text = name, 
             values = ( ports, user ))
+
+
+class ServiceManagementEditServiceWindow:
+    def __init__(self, parent):
+        print("nothing yet")

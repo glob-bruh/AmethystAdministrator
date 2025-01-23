@@ -27,5 +27,5 @@ class adbSession:
         self.device.connect(rsa_keys=[signer], auth_timeout_s=0.1)
     
     def sendCommand(self, command):
-        r = self.device.shell(command)
-        print(r)
+        x = self.device.shell(command)
+        return x

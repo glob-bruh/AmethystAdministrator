@@ -1,5 +1,2 @@
-/__pycache__/
-
-/devices/android/__pycache__/
-adbkey
-adbkey.pub
+*__pycache__*
+adbkey*

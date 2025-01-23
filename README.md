@@ -36,10 +36,11 @@
   - [ ] Program can send a ping.
   - [ ] Program can receive and read a ping.
   - [ ] Ping statistics are functional and can be displayed.
-- [ ] TkInter terminal for ssh/telnet/terminal connections (worst case scenario launch a new term on the sys and run command).
+- [x] TkInter terminal.
 - [x] Come up with flashy name.
 - [ ] Secure password storage (in memory and on disk).
 - [ ] Implement the ability to connect to clients over various protocols (in order of importance):
+  - [x] Android Debug Bridge.
   - [ ] Terminals - SSH and Telnet.
   - [ ] File Transfer - FTP, SFTP and SAMBA.
   - [ ] Remote Administration - Remote PowerShell Command Execution, etc.
