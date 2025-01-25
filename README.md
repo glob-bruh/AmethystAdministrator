@@ -18,7 +18,7 @@
   - [x] Add service/port.
   - [x] Remove service/port.
   - [ ] Edit service/port.
-- [ ] Smaller images on canvas (try to make them all the same size).
+- [x] Smaller images on canvas.
 - [ ] Scrollbar for canvas (to see other parts of canvas).
 - [ ] Art assets:
   - [ ] Make clients icons on canvas look good using assets that can be used on the project. 

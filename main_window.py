@@ -25,7 +25,6 @@ import network_verify as netV
 import edit_host as eHost
 import terminal as term
 from services import services_manager as svMgr
-#from devices.android import adb_wireless
 
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
@@ -41,7 +40,7 @@ class MainWindow:
         x = False
         for i in self.host_array:
             if i[0] == x2:
-                messagebox.showwarning(title = "Host Already Exists", message = f"Host with the IP address of \"{x2}\" already exists.")
+                messagebox.showwarning(title="Host Already Exists", message=f"Host with the IP address of \"{x2}\" already exists.")
                 x = True
         if x == False:
             x4 = self.host_type_drop_val.get()
@@ -54,14 +53,14 @@ class MainWindow:
                 self.host_array.append( [ x2, [x4, ""], x1, x3, {} ] )
             else:
                 # https://docs.python.org/3/library/tkinter.messagebox.html
-                messagebox.showwarning(title = "Not a Valid IPv4", message = f"The text \"{x2}\" is not a valid IPv4 address.")
+                messagebox.showwarning(title="Not a Valid IPv4", message=f"The text \"{x2}\" is not a valid IPv4 address.")
         self.ip_text.delete(0, END)
         self.host_type_drop_val.set("workstation")
         print(self.host_array)
 
     def removeHost(self):
         treeCurSel = self.hosts_tree.item( self.hosts_tree.focus() )["text"]
-        x = messagebox.askquestion(title = "Remove Host?", message = f"Are you sure you want to delete the host \"{treeCurSel}\"?")
+        x = messagebox.askquestion(title="Remove Host?", message=f"Are you sure you want to delete the host \"{treeCurSel}\"?")
         if x == "yes" and treeCurSel != "":
             i = 0
             for t in self.host_array:
@@ -89,22 +88,26 @@ class MainWindow:
         hostType_drop = OptionMenu(
             win, self.host_type_drop_val,
             *["workstation", "server", "router", "smartphone"])
+        self.statusLabel = Label(win, text="All Good!", fg="green", justify="left") # left-justify this...
         self.addHost_btn = Button(win, width=tkDefWidth, text="Add Host", command=lambda: self.addHost(canvas))
         removeHost_btn = Button(win, width=tkDefWidth, text="Remove Host", command=lambda: self.removeHost())
         editHost_btn = Button(win, width=tkDefWidth, text="Edit Host", command=lambda: 
             eHost.EditHostWindow(self.host_array, self.hosts_tree.item( self.hosts_tree.focus() )["text"]))
-        aboutTheProgram_btn = Button(win, text=f"About", command=lambda: AboutTheProgramWindow(self.program_name))
+        localTerminal_btn = Button(win, text="Local Shell", command=lambda: term.TerminalWindow("Local Shell", None))
+        aboutTheProgram_btn = Button(win, text="About", command=lambda: AboutTheProgramWindow(self.program_name))
         Grid.grid_rowconfigure(win, index=0, weight=1)
         Grid.grid_columnconfigure(win, index=0, weight=1)
         canvas.grid(row=0, column=0, rowspan=7, sticky="nsew")
         self.hosts_tree.grid(row=7, column=0, columnspan=2, rowspan=4, sticky="nsew")
+        self.statusLabel.grid(row=0, column=1)
         ipAddr_lbl.grid(row=1, column=1)
         self.ip_text.grid(row=2, column=1)
         hostType_drop.grid(row=3, column=1)
         self.addHost_btn.grid(row=4, column=1)
         removeHost_btn.grid(row=5, column=1)
         editHost_btn.grid(row=6, column=1)
-        aboutTheProgram_btn.grid(row=11, column=0)
+        localTerminal_btn.grid(row=11, column=0)
+        aboutTheProgram_btn.grid(row=11, column=1)
         self.pgrmLogo_ico = ImageTk.PhotoImage( Image.open("resources/pic/logo/logoNormal.ico") )
         win.wm_iconphoto(False, self.pgrmLogo_ico)
         win.title(self.program_name)
@@ -160,7 +163,6 @@ class ExperimentsWindow:
         adbIp_lbl = Label(win, text="IP:")
         adbIpEnter_txt = Entry(win)
         adbConnectDevice_btn = Button(win, text="Spawn ADB Term", command=lambda: self.adbSpawnTerm( adbIpEnter_txt.get() ))
-        termOpenNew_btn = Button(win, text="Spawn Normal Term", command=lambda: term.TerminalWindow("Local Shell", None))
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=4)
@@ -168,7 +170,6 @@ class ExperimentsWindow:
         adbIp_lbl.grid(row=4, column=0)
         adbIpEnter_txt.grid(row=4, column=1)
         adbConnectDevice_btn.grid(row=5, column=1)
-        termOpenNew_btn.grid(row=6, column=1)
         ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=4)
         win.title(f"{program_name} Experiments")
         win.mainloop()

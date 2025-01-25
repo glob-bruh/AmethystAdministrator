@@ -53,6 +53,7 @@ class TerminalWindow:
         self.cmdOut_lbl.configure(state="normal")
         self.cmdOut_lbl.insert(END, f"\n>>> {command}")
         self.cmdOut_lbl.configure(state="disabled")
+        self.cmdOut_lbl.see(END)
         try:
             x = self.currentService.sendCommand(command)
         except Exception as e:
