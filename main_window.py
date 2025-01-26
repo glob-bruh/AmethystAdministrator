@@ -26,6 +26,7 @@ import edit_host as eHost
 import terminal as term
 from services import services_manager as svMgr
 
+
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
         self.window_main = window_main
@@ -34,6 +35,7 @@ class MainWindow:
         self.host_type_drop_val = None
         self.hosts_tree = None
         self.program_name = program_name
+        self.hostTypes = ["workstation", "server", "router", "smartphone"]
 
     def addHost(self, c):
         x2 = self.ip_text.get()
@@ -45,7 +47,7 @@ class MainWindow:
         if x == False:
             x4 = self.host_type_drop_val.get()
             if netV.validateIPv4(x2) == True:
-                x1 = cc.hostCanvas(self.host_array, self.window_main, c, x2, x4)
+                x1 = cc.hostCanvas(self, self.host_array, self.window_main, c, x2, x4)
                 x3 = self.hosts_tree.insert(
                     "", END,
                     text = x2,
@@ -87,12 +89,12 @@ class MainWindow:
         self.host_type_drop_val.set("workstation")
         hostType_drop = OptionMenu(
             win, self.host_type_drop_val,
-            *["workstation", "server", "router", "smartphone"])
+            *self.hostTypes)
         self.statusLabel = Label(win, text="All Good!", fg="green", justify="left") # left-justify this...
         self.addHost_btn = Button(win, width=tkDefWidth, text="Add Host", command=lambda: self.addHost(canvas))
         removeHost_btn = Button(win, width=tkDefWidth, text="Remove Host", command=lambda: self.removeHost())
         editHost_btn = Button(win, width=tkDefWidth, text="Edit Host", command=lambda: 
-            eHost.EditHostWindow(self.host_array, self.hosts_tree.item( self.hosts_tree.focus() )["text"]))
+            eHost.EditHostWindow(self, self.host_array, self.hosts_tree.item( self.hosts_tree.focus() )["text"]))
         localTerminal_btn = Button(win, text="Local Shell", command=lambda: term.TerminalWindow("Local Shell", None))
         aboutTheProgram_btn = Button(win, text="About", command=lambda: AboutTheProgramWindow(self.program_name))
         Grid.grid_rowconfigure(win, index=0, weight=1)
@@ -154,36 +156,17 @@ class AboutTheProgramWindow:
         win.title(f"About {program_name}")
         win.mainloop()
 
+
 class ExperimentsWindow:
     def __init__(self, program_name):
         win = Tk()
         title_lbl = Label(win, text="EXPERIMENTS", font = ("", 17, "bold"))
         warning_lbl = Label(win, text="Please use with caution!\nThese features might not work properly yet...")
-        adbDebug_lbl = Label(win, text="Android Debug Bridge:")
-        adbIp_lbl = Label(win, text="IP:")
-        adbIpEnter_txt = Entry(win)
-        adbConnectDevice_btn = Button(win, text="Spawn ADB Term", command=lambda: self.adbSpawnTerm( adbIpEnter_txt.get() ))
+        noExperiments_lbl = Label(win, text="No Experiments")
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=4)
-        adbDebug_lbl.grid(row=3, column=0)
-        adbIp_lbl.grid(row=4, column=0)
-        adbIpEnter_txt.grid(row=4, column=1)
-        adbConnectDevice_btn.grid(row=5, column=1)
+        noExperiments_lbl.grid(row=3, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=4)
         win.title(f"{program_name} Experiments")
         win.mainloop()
-
-    def adbSpawnTerm(self, ip):
-        try:
-            self.adbDevice = adb_wireless.adbSession(ip)
-        except OSError:
-            print("Failed To Connect")
-        else:
-            print(f"Connected: {self.adbDevice}")
-            self.adbTerm = term.TerminalWindow("ADB", self.adbDevice)
-
-    def adbRunCmd(self, cmd):
-        print(f"RUN: {cmd}")
-        print(self.adbDevice)
-        self.adbDevice.sendCommand(cmd)

@@ -22,9 +22,11 @@ import edit_host as eHost
 from services import services_manager as svMgr
 from services import services_processor as svProc
 
+
 class hostCanvas():
-    def __init__(self, hArr, win, c, ip, src):
+    def __init__(self, parent, hArr, win, c, ip, src):
         # do note that the random number image ident will eventually cause collisions
+        self.parent = parent
         self.win = win
         self.hostArr = hArr
         self.canvas = c
@@ -66,7 +68,7 @@ class hostCanvas():
 
     def imgContextMenu(self, event):
         contextMenu = Menu(self.win, tearoff=0)
-        contextMenu.add_command(label=f"IP Address: {self.ip}", command=lambda: eHost.EditHostWindow(self.hostArr, self.ip))
+        contextMenu.add_command(label=f"IP Address: {self.ip}", command=lambda: eHost.EditHostWindow(self.parent, self.hostArr, self.ip))
         contextMenu.add_separator()
         #contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.AndroidDebugBridge(self.ip))
         contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.determineService(self.hostArr, self.ip))

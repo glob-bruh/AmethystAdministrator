@@ -19,7 +19,16 @@ from devices.android import adb_wireless
 
 class TerminalWindow:
     def __init__(self, titleNote, s):
-        def enterKeyPressed(x): self.execCmdShowOut(cmdEnter_txt.get())
+        
+        def enterKeyPressed(x): 
+            self.cmd = cmdEnter_txt.get()
+            self.execCmdShowOut(self.cmd)
+        
+        def upKeyPressed(x):
+            cmdEnter_txt.delete(0, END)
+            cmdEnter_txt.insert(0, self.cmd)
+        
+        self.cmd = ""
         if not s:
             self.currentService = LocalShellService()
         else:
@@ -35,8 +44,9 @@ class TerminalWindow:
         cmdClearTerm_btn = Button(self.win, text="Clear", width=10, command=lambda: self.clearTerminal())
         cmdCloseWindow_btn = Button(self.win, text="Exit", width=10, command=lambda: self.closeTerminal())
         cmdEnter_txt = Entry(self.win, font=x)
-        cmdSend_btn = Button(self.win, text="\u23CE", command=lambda: self.execCmdShowOut(cmdEnter_txt.get()))
+        cmdSend_btn = Button(self.win, text="\u23CE", command=lambda: enterKeyPressed(None))
         cmdEnter_txt.bind("<Return>", enterKeyPressed)
+        cmdEnter_txt.bind("<Up>", upKeyPressed)
         Grid.grid_rowconfigure(self.win, index=0, weight=1)
         Grid.grid_columnconfigure(self.win, index=0, weight=1)
         self.cmdOut_lbl.grid(row=0, column=0, rowspan=6, columnspan=2, sticky="nsew")

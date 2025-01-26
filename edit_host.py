@@ -18,12 +18,14 @@ from textwrap import dedent
 import threading as th
 import random
 
+import main_window as mWin
 import canvas_controller as cc
 import network_verify as netV
 
 class EditHostWindow:
-    def __init__(self, hArr, ip):
+    def __init__(self, parent, hArr, ip):
         if ip != "":
+            self.parent = parent
             self.win = Tk()
             self.ip = ip
             self.array = hArr
@@ -38,7 +40,7 @@ class EditHostWindow:
                     self.deviceType_drp_val.set(x[1][0])
             deviceType_drp = OptionMenu(
                 self.win, self.deviceType_drp_val,
-                *["workstation", "server", "router", "smartphone"])
+                *self.parent.hostTypes)
             saveEdit_btn = Button(self.win, text="Save and Close", command=lambda: self.saveEditChanges())
             cancelEdit_btn = Button(self.win, text="Cancel", command=lambda: self.win.destroy())
             winHead_lbl.grid(row=0, column=0, columnspan=2)
