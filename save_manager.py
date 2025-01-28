@@ -20,6 +20,10 @@ def Save(mw: MainWindow) -> MainWindow:
 
 
 def Load(mw: MainWindow) -> MainWindow:
+    """
+    :param mw: The MainWindow object from the application.
+    :return: The same MainWindow object being returned after hosts array loaded. This will overwrite current hosts array.
+    """
     try:
         with open(".sacred/main_window.pickle", "rb") as pickle_management:
             mw.host_array = pickle.load(pickle_management)
@@ -30,6 +34,10 @@ def Load(mw: MainWindow) -> MainWindow:
 
 
 def Delete(mw: MainWindow) -> MainWindow:
+    """
+    :param mw: The MainWindow object from the application.
+    :return: The same MainWindow object being returned after hosts array deleted.
+    """
     try:
         mw.host_array = None
     except Exception as e:
