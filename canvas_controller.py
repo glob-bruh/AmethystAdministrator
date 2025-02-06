@@ -11,19 +11,22 @@ widget on the main window and its images.
 --------------------------------------------------
 """
 
-from tkinter import *
 import random
 import sys
+from tkinter import *
 from matplotlib import font_manager
 from PIL import Image, ImageTk, ImageFont, ImageDraw
 
-import services_manager as svMgr
 import network_pinger as netPing
-import edit_host as modHost
+import edit_host as eHost
+from services import services_manager as svMgr
+from services import services_processor as svProc
+
 
 class hostCanvas():
-    def __init__(self, hArr, win, c, ip, src):
+    def __init__(self, parent, hArr, win, c, ip, src):
         # do note that the random number image ident will eventually cause collisions
+        self.parent = parent
         self.win = win
         self.hostArr = hArr
         self.canvas = c
@@ -33,11 +36,7 @@ class hostCanvas():
         image = Image.open(f"resources/pic/devicePic/{src}.png")
         imgWidth, imgHeight = image.size
         x = ImageDraw.Draw(image)
-        match sys.platform:
-            case "linux":   file = font_manager.findfont("hack")
-            case "windows": file = font_manager.findfont("consolas")
-            case "mac":     file = font_manager.findfont("sf mono")
-            case _:         file = font_manager.findfont("sans serif")
+        file = findMonospaceFont()[1]
         # font = ImageFont.truetype(<font-file>, <font-size>)
         font = ImageFont.truetype(file, 20)
         # x.text((x, y),"Sample Text",(r,g,b))
@@ -69,40 +68,28 @@ class hostCanvas():
 
     def imgContextMenu(self, event):
         contextMenu = Menu(self.win, tearoff=0)
-        contextMenu.add_command( label = f"IP Address: {self.ip}", command = lambda: modHost.EditHostWindow(self.hostArr, self.ip))
+        contextMenu.add_command(label=f"IP Address: {self.ip}", command=lambda: eHost.EditHostWindow(self.parent, self.hostArr, self.ip))
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Connect via Terminal" )
-        contextMenu.add_command( label = "Connect via Remote Desktop" )
-        contextMenu.add_command( label = "Remote Administration Tools" )
+        #contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.AndroidDebugBridge(self.ip))
+        contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.determineService(self.hostArr, self.ip))
+        contextMenu.add_command(label="Connect via Remote Desktop")
+        contextMenu.add_command(label="Remote Administration Tools")
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Auto-ping: OFF", command = lambda: netPing.pinger(self.ip) )
+        contextMenu.add_command(label="Auto-ping: OFF", command=lambda: netPing.pinger(self.ip))
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Service Manager", command =  lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip, 15) )
-        contextMenu.add_command( label = "Browse Files")
+        contextMenu.add_command(label="Service Manager", command=lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip, 15))
+        contextMenu.add_command(label="Browse Files")
         contextMenu.add_separator()
-        contextMenu.add_command( label = "Close Menu" )
+        contextMenu.add_command(label = "Close Menu")
         contextMenu.tk_popup(event.x_root, event.y_root)
 
 def removeHostFromCanvas(host):
     host.canvas.delete(host.imgCanvasID)
 
-def genImgDeviceLookup():
-    return [
-        ["workstation", "wstn"],
-        ["server",      "srvr"],
-        ["router",      "rter"]
-    ]
-
-def imgToDevice(img):
-    x = genImgDeviceLookup()
-    for i in x:
-        if i[1] == img:
-            return i[0]
-    return "???"
-
-def deviceToImg(device):
-    x = genImgDeviceLookup()
-    for i in x:
-        if i[0] == device:
-            return i[1]
-    return "???"
+def findMonospaceFont():
+    match sys.platform:
+        case "linux":  x = "hack"
+        case "win32":  x = "consolas"
+        case "darwin": x = "sf mono"
+        case _:        x = "sans serif"
+    return [x, font_manager.findfont(x)]

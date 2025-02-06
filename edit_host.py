@@ -18,12 +18,14 @@ from textwrap import dedent
 import threading as th
 import random
 
+import main_window as mWin
 import canvas_controller as cc
 import network_verify as netV
 
 class EditHostWindow:
-    def __init__(self, hArr, ip):
+    def __init__(self, parent, hArr, ip):
         if ip != "":
+            self.parent = parent
             self.win = Tk()
             self.ip = ip
             self.array = hArr
@@ -35,10 +37,10 @@ class EditHostWindow:
             for x in self.array:
                 if x[0] == ip:
                     self.hostname_txt.insert(0, x[1][1])
-                    self.deviceType_drp_val.set( cc.imgToDevice(x[1][0]) )
+                    self.deviceType_drp_val.set(x[1][0])
             deviceType_drp = OptionMenu(
                 self.win, self.deviceType_drp_val,
-                *["workstation", "server", "router"])
+                *self.parent.hostTypes)
             saveEdit_btn = Button(self.win, text="Save and Close", command=lambda: self.saveEditChanges())
             cancelEdit_btn = Button(self.win, text="Cancel", command=lambda: self.win.destroy())
             winHead_lbl.grid(row=0, column=0, columnspan=2)
@@ -55,5 +57,6 @@ class EditHostWindow:
         # Canvas and TreeView needs to be updated after these are set.
         for x in self.array:
             if x[0] == self.ip:
-                x[1][0] = cc.deviceToImg(self.deviceType_drp_val.get())
+                x[1][0] = self.deviceType_drp_val.get()
                 x[1][1] = self.hostname_txt.get()
+        self.win.destroy()
