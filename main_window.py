@@ -35,7 +35,7 @@ class MainWindow:
         self.host_type_drop_val = None
         self.hosts_tree = None
         self.program_name = program_name
-        self.hostTypes = ["workstation", "server", "router", "smartphone"]
+        self.hostTypes = ["workstation", "server", "router", "smartphone", "cloud-M365"]
 
     def addHost(self, c):
         x2 = self.ip_text.get()
