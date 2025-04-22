@@ -13,6 +13,7 @@ This file contains classes for important windows.
 import threading as th
 import random
 import webbrowser
+import subprocess
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
@@ -156,6 +157,27 @@ class AboutTheProgramWindow:
         win.title(f"About {program_name}")
         win.mainloop()
 
+class powershellTest:
+    def __init__(self, program_name):
+        print("test")
+        self.startGraph()
+
+    def execPowershell(self, cmd):
+        process = subprocess.Popen(
+            ["powershell", "-Command", cmd],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            text=True
+        )
+        stdout, stderr = process.communicate()
+        if process.returncode == 0: return stdout
+        else: return stderr
+
+    def startGraph(self):
+        r = self.execPowershell("$maximumfunctioncount = '32768' ; Import-Module -Name Microsoft.Graph -Force")
+        print("Import done! Launch graph")
+        r = self.execPowershell("Connect-MgGraph")
+        print(f"Done: {r}")
+
 
 class ExperimentsWindow:
     def __init__(self, program_name):
@@ -163,10 +185,12 @@ class ExperimentsWindow:
         title_lbl = Label(win, text="EXPERIMENTS", font = ("", 17, "bold"))
         warning_lbl = Label(win, text="Please use with caution!\nThese features might not work properly yet...")
         noExperiments_lbl = Label(win, text="No Experiments")
+        powershellTest_btn = Button(win, text="Powershell/GraphAPI Test", cursor="hand2", command=lambda: powershellTest(program_name))
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=4)
-        noExperiments_lbl.grid(row=3, column=0, columnspan=3)
+        powershellTest_btn.grid(row=3, column=0, columnspan=3)
+        # noExperiments_lbl.grid(row=3, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=4)
         win.title(f"{program_name} Experiments")
         win.mainloop()
