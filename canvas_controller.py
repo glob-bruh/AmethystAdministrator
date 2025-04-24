@@ -33,7 +33,7 @@ class hostCanvas():
         self.ip = ip
         self.imgMoveData = {"x": 0, "y": 0, "item": None}
         i = f"image{random.randint(0, 9999999999)}"
-        image = Image.open(f"resources/pic/devicePic/{src}.png")
+        image = Image.open(f"resources/pic/downloaded/{src}.png")
         imgWidth, imgHeight = image.size
         x = ImageDraw.Draw(image)
         file = findMonospaceFont()[1]

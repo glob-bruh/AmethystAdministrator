@@ -20,10 +20,7 @@
   - [ ] Edit service/port.
 - [x] Smaller images on canvas.
 - [ ] Scrollbar for canvas (to see other parts of canvas).
-- [ ] Art assets:
-  - [ ] Make clients icons on canvas look good using assets that can be used on the project. 
-  - [ ] Icons for TreeView. 
-  - [ ] Lock and unlock icon for clients on canvas (to indicate if there is access or not).
+- [x] Art assets.
 - [ ] Save/load functionality.
   - [ ] Export/Save to file.
   - [ ] Load file/data.
@@ -39,6 +36,7 @@
 - [x] TkInter terminal.
 - [x] Come up with flashy name.
 - [ ] Secure password storage (in memory and on disk).
+- [ ] Graph API cloud management (via PowerShell).
 - [ ] Implement the ability to connect to clients over various protocols (in order of importance):
   - [x] Android Debug Bridge.
   - [ ] Terminals - SSH and Telnet.
