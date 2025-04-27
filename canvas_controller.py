@@ -35,6 +35,9 @@ class hostCanvas():
         i = f"image{random.randint(0, 9999999999)}"
         image = Image.open(f"resources/pic/downloaded/{src}.png")
         imgWidth, imgHeight = image.size
+        imageAccess = Image.open(f"resources/pic/downloaded/accessBad.png")
+        imgWidth2, imgHeight2 = imageAccess.size
+        image.paste(imageAccess, (imgWidth - 40, imgHeight - 50), imageAccess)
         x = ImageDraw.Draw(image)
         file = findMonospaceFont()[1]
         # font = ImageFont.truetype(<font-file>, <font-size>)
