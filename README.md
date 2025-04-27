@@ -36,7 +36,11 @@
 - [x] TkInter terminal.
 - [x] Come up with flashy name.
 - [ ] Secure password storage (in memory and on disk).
-- [ ] Graph API cloud management (via PowerShell).
+- [ ] Cloud manager (M365).
+  - [ ] Local PowerShell session service (with persistence).
+  - [ ] Connecting to client opens Graph terminal.
+  - [ ] Graph API cloud management (via PowerShell).
+  - [ ] Cloud manager GUI. 
 - [ ] Implement the ability to connect to clients over various protocols (in order of importance):
   - [x] Android Debug Bridge.
   - [ ] Terminals - SSH and Telnet.

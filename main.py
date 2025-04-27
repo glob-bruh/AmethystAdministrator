@@ -37,7 +37,7 @@ def showHelp():
     ----------------------------
     Options:
     > Nothing - Launch Amethyst Administrator normally.
-    > Testing - Adds 3 pre-configured test hosts when started.
+    > Testing - Adds pre-configured test hosts when started.
     > Docs    - Show full documentation.
     ----------------------------
     """))
@@ -62,6 +62,9 @@ if __name__ == "__main__":
                 window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.3") ; window_instance.addHost_btn.invoke()
                 window_instance.host_array[2][1][2] = "WORKSTATION-" + str(random.randint(00000, 99999))
                 window_instance.host_array[2][4] = {'Front Desk FTP': ['21', 'sys', 'p@ssw0rd']}
+                window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "1.1.1.1") ; window_instance.host_type_drop_val.set("cloud-M365") ; window_instance.addHost_btn.invoke()
+                window_instance.host_array[3][1][2] = "CLOUD-" + str(random.randint(00000, 99999))
+                window_instance.host_array[3][4] = {'Cloud PowerShell': ['2121', 'test@example.com', 'p@ssw0rd']}
             case "docs":
                 print("nothing yet.")
                 exit(0)

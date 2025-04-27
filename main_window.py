@@ -57,13 +57,16 @@ class MainWindow:
                 x = True
         if x == False:
             x4 = self.host_type_drop_val.get()
+            for i in self.hostTypes:
+                if x4 == i[0]:
+                    x5 = i[1]
             if netV.validateIPv4(x2) == True:
                 x1 = cc.hostCanvas(self, self.host_array, self.window_main, c, x2, x4)
                 x3 = self.hosts_tree.insert(
                     "", END,
                     text = x2,
                     values = (x4, 0, "Pinger not running", False))
-                self.host_array.append( [ x2, [x4, "type" ,""], x1, x3, {} ] )
+                self.host_array.append( [ x2, [x4, x5 ,""], x1, x3, {} ] )
             else:
                 # https://docs.python.org/3/library/tkinter.messagebox.html
                 messagebox.showwarning(title="Not a Valid IPv4", message=f"The text \"{x2}\" is not a valid IPv4 address.")
@@ -135,28 +138,9 @@ class AboutTheProgramWindow:
         pgrmLogo_png = ImageTk.PhotoImage(x)
         logo_lbl = Label(win, image=pgrmLogo_png)
         descText = ""
-        try:
-            CHANGE_ME_WITH_EXTREME_CAUTION_READ_THE_LICENSE = "c92648ad0606ef9256fd170e7c8566b1949382baff50fbfb7e4bc446dd7f54d0"
-            fileHash = sha256()
-            with open("LICENSE", "rb") as f:
-                for b in iter(lambda: f.read(4096),b""):
-                    fileHash.update(b)
-            if fileHash.hexdigest().lower() != CHANGE_ME_WITH_EXTREME_CAUTION_READ_THE_LICENSE:
-                descText = dedent("""
-                    YOU HAVE BEEN SCAMMED! SOMEONE TAMPERED WITH THE LICENSE!
-                    You should email me regarding how you acquired this copy of 
-                    Amethyst Administrator and why it has shipped with a modified license.
-                    """)
-            else:
-                with open("LICENSE", "r") as f:
-                    for x in f:
-                        descText += f"{x.strip()}\n"
-        except OSError:
-            descText = dedent("""
-                YOU HAVE BEEN SCAMMED! WHERE IS THE LICENSE FILE?
-                You should email me regarding how you acquired this copy of 
-                Amethyst Administrator and why the license is not included.
-                """)
+        with open("LICENSE", "r") as f:
+            for x in f:
+                descText += f"{x.strip()}\n"
         aboutDesc_lbl = Label(win, text=descText)
         openGithub_btn = Button(win, text="GitHub Page", cursor="hand2", command=lambda: webbrowser.open_new("https://github.com/glob-bruh/AmethystAdministrator"))
         experimentsWindow_btn = Button(win, text="Experiments", cursor="hand2", command=lambda: ExperimentsWindow(program_name))
@@ -217,6 +201,11 @@ class downloadIcoPack:
         with open("./resources/pic/downloaded/" + outName, 'wb') as imgFile:
             imgFile.write(img)
 
+class updateAccessIcoTEST:
+    def __init__(self):
+        print("bruh")
+        
+
 class ExperimentsWindow:
     def __init__(self, program_name):
         win = Tk()
@@ -225,11 +214,13 @@ class ExperimentsWindow:
         noExperiments_lbl = Label(win, text="No Experiments")
         powershellTest_btn = Button(win, text="Powershell/GraphAPI Test", cursor="hand2", command=lambda: powershellTest(program_name))
         cloud365test_btn = Button(win, text="M365 Cloud Window", cursor="hand2", command=lambda: powershellTest(program_name))
+        iconChangeTest_btn = Button(win, text="Update Canvas Access Icons", cursor="hand2", command=lambda: updateAccessIcoTEST())
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=4)
         powershellTest_btn.grid(row=3, column=0, columnspan=3)
         cloud365test_btn.grid(row=4, column=0, columnspan=3)
+        iconChangeTest_btn.grid(row=5, column=0, columnspan=3)
         # noExperiments_lbl.grid(row=3, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=4)
         win.title(f"{program_name} Experiments")

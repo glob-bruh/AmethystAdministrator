@@ -35,9 +35,9 @@ class hostCanvas():
         i = f"image{random.randint(0, 9999999999)}"
         image = Image.open(f"resources/pic/downloaded/{src}.png")
         imgWidth, imgHeight = image.size
-        imageAccess = Image.open(f"resources/pic/downloaded/accessBad.png")
-        imgWidth2, imgHeight2 = imageAccess.size
-        image.paste(imageAccess, (imgWidth - 40, imgHeight - 50), imageAccess)
+        self.imageAccess = Image.open(f"resources/pic/downloaded/accessBad.png")
+        imgWidth2, imgHeight2 = self.imageAccess.size
+        image.paste(self.imageAccess, (imgWidth - 40, imgHeight - 50), self.imageAccess)
         x = ImageDraw.Draw(image)
         file = findMonospaceFont()[1]
         # font = ImageFont.truetype(<font-file>, <font-size>)
@@ -71,17 +71,25 @@ class hostCanvas():
 
     def imgContextMenu(self, event):
         contextMenu = Menu(self.win, tearoff=0)
-        contextMenu.add_command(label=f"IP Address: {self.ip}", command=lambda: eHost.EditHostWindow(self.parent, self.hostArr, self.ip))
-        contextMenu.add_separator()
-        #contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.AndroidDebugBridge(self.ip))
-        contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.determineService(self.hostArr, self.ip))
-        contextMenu.add_command(label="Connect via Remote Desktop")
-        contextMenu.add_command(label="Remote Administration Tools")
-        contextMenu.add_separator()
-        contextMenu.add_command(label="Auto-ping: OFF", command=lambda: netPing.pinger(self.ip))
-        contextMenu.add_separator()
-        contextMenu.add_command(label="Service Manager", command=lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip, 15))
-        contextMenu.add_command(label="Browse Files")
+        for i in self.hostArr:
+            if i[0] == self.ip:
+                match i[1][1]:
+                    case "ip": 
+                        contextMenu.add_command(label=f"IP Address: {self.ip}", command=lambda: eHost.EditHostWindow(self.parent, self.hostArr, self.ip))
+                        contextMenu.add_separator()
+                        #contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.AndroidDebugBridge(self.ip))
+                        contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.determineService(self.hostArr, self.ip))
+                        contextMenu.add_command(label="Connect via Remote Desktop")
+                        contextMenu.add_command(label="Remote Administration Tools")
+                        contextMenu.add_separator()
+                        contextMenu.add_command(label="Auto-ping: OFF", command=lambda: netPing.pinger(self.ip))
+                        contextMenu.add_separator()
+                        contextMenu.add_command(label="Service Manager", command=lambda: svMgr.ServiceManagementWindow(self.hostArr, self.ip, 15))
+                        contextMenu.add_command(label="Browse Files")
+                    case "cloud":
+                        contextMenu.add_command(label=f"Cloud ID: {self.ip}", command=lambda: eHost.EditHostWindow(self.parent, self.hostArr, self.ip))
+                        contextMenu.add_separator()
+                        contextMenu.add_command(label="Connect to Cloud", command=lambda: print("no cloud yet."))
         contextMenu.add_separator()
         contextMenu.add_command(label = "Close Menu")
         contextMenu.tk_popup(event.x_root, event.y_root)

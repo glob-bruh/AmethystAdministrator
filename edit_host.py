@@ -38,9 +38,7 @@ class EditHostWindow:
                 if x[0] == ip:
                     self.hostname_txt.insert(0, x[1][2])
                     self.deviceType_drp_val.set(x[1][0])
-            deviceType_drp = OptionMenu(
-                self.win, self.deviceType_drp_val,
-                *self.parent.hostTypes)
+            deviceType_drp = OptionMenu(self.win, self.deviceType_drp_val, *self.parent.hostTypesNames)
             saveEdit_btn = Button(self.win, text="Save and Close", command=lambda: self.saveEditChanges())
             cancelEdit_btn = Button(self.win, text="Cancel", command=lambda: self.win.destroy())
             winHead_lbl.grid(row=0, column=0, columnspan=2)
