@@ -47,7 +47,7 @@ class ServiceManagementWindow:
             for i in self.arrayForThisSys[4]:
                 # .insert(<PARENT ITEM>, <POSITION/INDEX>)
                 t1 = self.arrayForThisSys[4][i]
-                t2 = PhotoImage(file = "resources/pic/icons/serviceGear.png")
+                t2 = PhotoImage(file = "resources/pic/downloaded/serviceIcon.png")
                 #x3 = self.services_tree.insert(
                 #    "", END, 
                 #    text = i, 

@@ -36,7 +36,7 @@ class EditHostWindow:
             self.deviceType_drp_val = StringVar(self.win)
             for x in self.array:
                 if x[0] == ip:
-                    self.hostname_txt.insert(0, x[1][1])
+                    self.hostname_txt.insert(0, x[1][2])
                     self.deviceType_drp_val.set(x[1][0])
             deviceType_drp = OptionMenu(
                 self.win, self.deviceType_drp_val,
@@ -58,5 +58,5 @@ class EditHostWindow:
         for x in self.array:
             if x[0] == self.ip:
                 x[1][0] = self.deviceType_drp_val.get()
-                x[1][1] = self.hostname_txt.get()
+                x[1][2] = self.hostname_txt.get()
         self.win.destroy()

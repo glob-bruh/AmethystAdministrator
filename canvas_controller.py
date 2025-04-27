@@ -38,9 +38,9 @@ class hostCanvas():
         x = ImageDraw.Draw(image)
         file = findMonospaceFont()[1]
         # font = ImageFont.truetype(<font-file>, <font-size>)
-        font = ImageFont.truetype(file, 20)
+        font = ImageFont.truetype(file, 14)
         # x.text((x, y),"Sample Text",(r,g,b))
-        x.text((0, imgHeight - 25), ip, (255,255,255), font=font)
+        x.text((0, imgHeight - 15), ip, (125, 125, 125), font=font)
         image = ImageTk.PhotoImage(image)
         setattr(c, i, image)
         self.imgCanvasID = c.create_image(50, 50, image = getattr(c, i), tags = ("movable", i))

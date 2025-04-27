@@ -32,10 +32,13 @@ def showHelp():
     ----------------------------
     AMETHYST ADMINISTRATOR HELP:
     ----------------------------
-    Usage: python3 ./main.py
+    Usage:
+    > python3 ./main.py <option>
     ----------------------------
-    > Nothing - Launch AA normally.
+    Options:
+    > Nothing - Launch Amethyst Administrator normally.
     > Testing - Adds 3 pre-configured test hosts when started.
+    > Docs    - Show full documentation.
     ----------------------------
     """))
     exit(0)
@@ -51,12 +54,15 @@ if __name__ == "__main__":
                 showHelp()
             case "testing":
                 window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.1") ; window_instance.addHost_btn.invoke()
-                window_instance.host_array[0][1][1] = "WORKSTATION-" + str(random.randint(00000, 99999))
+                window_instance.host_array[0][1][2] = "WORKSTATION-" + str(random.randint(00000, 99999))
                 window_instance.host_array[0][4] = {'Finance SSH': ['22', 'sys', 'p@ssw0rd']}
                 window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.2") ; window_instance.addHost_btn.invoke()
-                window_instance.host_array[1][1][1] = "WORKSTATION-" + str(random.randint(00000, 99999))
+                window_instance.host_array[1][1][2] = "WORKSTATION-" + str(random.randint(00000, 99999))
                 window_instance.host_array[1][4] = {'Workshop SSH': ['22', 'sys', 'p@ssw0rd']}
                 window_instance.ip_text.delete(0, END) ; window_instance.ip_text.insert(0, "192.168.0.3") ; window_instance.addHost_btn.invoke()
-                window_instance.host_array[2][1][1] = "WORKSTATION-" + str(random.randint(00000, 99999))
+                window_instance.host_array[2][1][2] = "WORKSTATION-" + str(random.randint(00000, 99999))
                 window_instance.host_array[2][4] = {'Front Desk FTP': ['21', 'sys', 'p@ssw0rd']}
+            case "docs":
+                print("nothing yet.")
+                exit(0)
     window_instance.window_main.mainloop()

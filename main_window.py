@@ -10,6 +10,7 @@ This file contains classes for important windows.
 --------------------------------------------------
 """
 
+import os
 import threading as th
 import random
 import webbrowser
@@ -32,13 +33,20 @@ from services import services_manager as svMgr
 
 class MainWindow:
     def __init__(self, program_name: str = "Amethyst Administrator", window_main=Tk()):
+        downloadIcoPack()
         self.window_main = window_main
         self.host_array = []
         self.ip_text = None
         self.host_type_drop_val = None
         self.hosts_tree = None
         self.program_name = program_name
-        self.hostTypes = ["workstation", "server", "router", "smartphone", "cloud-M365"]
+        self.hostTypes = [
+            ["workstation", "ip"],
+            ["server", "ip"],
+            ["router", "ip"],
+            ["smartphone", "ip"],
+            ["cloud-M365", "cloud"]
+        ]
 
     def addHost(self, c):
         x2 = self.ip_text.get()
@@ -55,7 +63,7 @@ class MainWindow:
                     "", END,
                     text = x2,
                     values = (x4, 0, "Pinger not running", False))
-                self.host_array.append( [ x2, [x4, ""], x1, x3, {} ] )
+                self.host_array.append( [ x2, [x4, "type" ,""], x1, x3, {} ] )
             else:
                 # https://docs.python.org/3/library/tkinter.messagebox.html
                 messagebox.showwarning(title="Not a Valid IPv4", message=f"The text \"{x2}\" is not a valid IPv4 address.")
@@ -90,9 +98,10 @@ class MainWindow:
         self.ip_text = Entry(win, width=tkDefWidth, validate="key")
         self.host_type_drop_val = StringVar(win)
         self.host_type_drop_val.set("workstation")
-        hostType_drop = OptionMenu(
-            win, self.host_type_drop_val,
-            *self.hostTypes)
+        self.hostTypesNames = []
+        for i in self.hostTypes:
+            self.hostTypesNames.append(i[0])
+        hostType_drop = OptionMenu(win, self.host_type_drop_val, *self.hostTypesNames)
         self.statusLabel = Label(win, text="All Good!", fg="green", justify="left") # left-justify this...
         self.addHost_btn = Button(win, width=tkDefWidth, text="Add Host", command=lambda: self.addHost(canvas))
         removeHost_btn = Button(win, width=tkDefWidth, text="Remove Host", command=lambda: self.removeHost())
@@ -182,24 +191,29 @@ class powershellTest:
 
 class downloadIcoPack:
     def __init__(self):
-        self.size = "128x128"
-        self.downloader("devices/computer.png", "workstation.png")
-        self.downloader("places/server-database.png", "server.png")
-        self.downloader("devices/modem.png", "router.png")
-        self.downloader("devices/smartphone.png", "smartphone.png")
-        self.downloader("apps/akonadi.png", "cloud-M365.png")
-        self.size = "48x48"
-        self.downloader("status/security-high.png", "accessGood.png")
-        self.downloader("status/security-low.png", "accessBad.png")
-        self.downloader("status/user-online.png", "pingGood.png")
-        self.downloader("status/user-busy.png", "pingBad.png")
-        self.size = "32x32"
-        self.downloader("devices/computer.png", "clientIcon.png")
-        self.downloader("actions/run-build-configure.png", "serviceIcon.png")
+        print("Checking Oxygen Icons...")
+        self.oxygenImgArr = [
+            ["devices/computer.png", "workstation.png", "128x128"],
+            ["places/server-database.png", "server.png", "128x128"],
+            ["devices/modem.png", "router.png", "128x128"],
+            ["devices/smartphone.png", "smartphone.png", "128x128"],
+            ["apps/akonadi.png", "cloud-M365.png", "128x128"],
+            ["status/security-high.png", "accessGood.png", "48x48"],
+            ["status/security-low.png", "accessBad.png", "48x48"],
+            ["status/user-online.png", "pingGood.png", "48x48"],
+            ["status/user-busy.png", "pingBad.png", "48x48"],
+            ["devices/computer.png", "clientIcon.png", "32x32"],
+            ["actions/run-build-configure.png", "serviceIcon.png", "32x32"]
+        ]
+        if not os.path.isfile(f"resources/pic/downloaded/{self.oxygenImgArr[-1][1]}"):
+            print("Installing Oxygen Icons...")
+            for x in self.oxygenImgArr:
+                self.downloader(x[0], x[1], x[2])
+            print("Icons installed!")
 
-    def downloader(self, url, outName):
+    def downloader(self, url, outName, size):
         self.source = "https://invent.kde.org/frameworks/oxygen-icons/-/raw/master/"
-        img = requests.get(self.source + self.size + "/" + url).content
+        img = requests.get(self.source + size + "/" + url).content
         with open("./resources/pic/downloaded/" + outName, 'wb') as imgFile:
             imgFile.write(img)
 
@@ -211,13 +225,11 @@ class ExperimentsWindow:
         noExperiments_lbl = Label(win, text="No Experiments")
         powershellTest_btn = Button(win, text="Powershell/GraphAPI Test", cursor="hand2", command=lambda: powershellTest(program_name))
         cloud365test_btn = Button(win, text="M365 Cloud Window", cursor="hand2", command=lambda: powershellTest(program_name))
-        downIco_btn = Button(win, text="Download Icon Pack", cursor="hand2", command=lambda: downloadIcoPack())
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=4)
         powershellTest_btn.grid(row=3, column=0, columnspan=3)
         cloud365test_btn.grid(row=4, column=0, columnspan=3)
-        downIco_btn.grid(row=5, column=0, columnspan=3)
         # noExperiments_lbl.grid(row=3, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=4)
         win.title(f"{program_name} Experiments")

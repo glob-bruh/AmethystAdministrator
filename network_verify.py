@@ -21,3 +21,8 @@ def validateIPv4(ipInput):
             except:     return False
             if n > 254: return False
         return True
+
+def validateCloudEmail(emailInput):
+    x = emailInput.split("@")
+    if len(x) < 2: return False
+    else:          return True
