@@ -11,6 +11,7 @@ This file contains classes for important windows.
 """
 
 import os
+import json
 import threading as th
 import random
 import webbrowser
@@ -87,7 +88,14 @@ class MainWindow:
             self.host_array.pop(i)
             print(self.host_array)
 
-    def initGui(self, win, tkDefWidth):
+    def hostTypeSelectionChanged(self, clickedSel):
+        match self.host_type_drop_val.get():
+            case "cloud-M365":
+                self.ipAddr_lbl["text"] = "Domain:"
+            case _:
+                self.ipAddr_lbl["text"] = "IP Address:"
+
+    def initGui(self, win, tkDefWidth):        
         canvas = Canvas(win, width=500, height=500, bg="#171717")
         self.hosts_tree = ttk.Treeview(
             win,
@@ -97,14 +105,14 @@ class MainWindow:
         self.hosts_tree.heading("numServ", text="Number of Services")
         self.hosts_tree.heading("isOnline", text="Pingable")
         self.hosts_tree.heading("isControllable", text="Controllable")
-        ipAddr_lbl = Label(win, width=tkDefWidth, text = "IP Address:")
+        self.ipAddr_lbl = Label(win, width=tkDefWidth, text = "IP Address:")
         self.ip_text = Entry(win, width=tkDefWidth, validate="key")
         self.host_type_drop_val = StringVar(win)
         self.host_type_drop_val.set("workstation")
         self.hostTypesNames = []
         for i in self.hostTypes:
             self.hostTypesNames.append(i[0])
-        hostType_drop = OptionMenu(win, self.host_type_drop_val, *self.hostTypesNames)
+        hostType_drop = OptionMenu(win, self.host_type_drop_val, *self.hostTypesNames, command=self.hostTypeSelectionChanged)
         self.statusLabel = Label(win, text="All Good!", fg="green", justify="left") # left-justify this...
         self.addHost_btn = Button(win, width=tkDefWidth, text="Add Host", command=lambda: self.addHost(canvas))
         removeHost_btn = Button(win, width=tkDefWidth, text="Remove Host", command=lambda: self.removeHost())
@@ -117,7 +125,7 @@ class MainWindow:
         canvas.grid(row=0, column=0, rowspan=7, sticky="nsew")
         self.hosts_tree.grid(row=7, column=0, columnspan=2, rowspan=4, sticky="nsew")
         self.statusLabel.grid(row=0, column=1)
-        ipAddr_lbl.grid(row=1, column=1)
+        self.ipAddr_lbl.grid(row=1, column=1)
         self.ip_text.grid(row=2, column=1)
         hostType_drop.grid(row=3, column=1)
         self.addHost_btn.grid(row=4, column=1)
@@ -204,7 +212,6 @@ class downloadIcoPack:
 class updateAccessIcoTEST:
     def __init__(self):
         print("bruh")
-        
 
 class ExperimentsWindow:
     def __init__(self, program_name):
@@ -212,15 +219,13 @@ class ExperimentsWindow:
         title_lbl = Label(win, text="EXPERIMENTS", font = ("", 17, "bold"))
         warning_lbl = Label(win, text="Please use with caution!\nThese features might not work properly yet...")
         noExperiments_lbl = Label(win, text="No Experiments")
-        powershellTest_btn = Button(win, text="Powershell/GraphAPI Test", cursor="hand2", command=lambda: powershellTest(program_name))
-        cloud365test_btn = Button(win, text="M365 Cloud Window", cursor="hand2", command=lambda: powershellTest(program_name))
+        powershellTest_btn = Button(win, text="Powershell/GraphAPI Test", cursor="hand2", command=lambda: cMgr.MicrosoftGraphAPIClass(program_name))
         iconChangeTest_btn = Button(win, text="Update Canvas Access Icons", cursor="hand2", command=lambda: updateAccessIcoTEST())
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=4)
         powershellTest_btn.grid(row=3, column=0, columnspan=3)
-        cloud365test_btn.grid(row=4, column=0, columnspan=3)
-        iconChangeTest_btn.grid(row=5, column=0, columnspan=3)
+        iconChangeTest_btn.grid(row=4, column=0, columnspan=3)
         # noExperiments_lbl.grid(row=3, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=4)
         win.title(f"{program_name} Experiments")

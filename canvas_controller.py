@@ -90,6 +90,7 @@ class hostCanvas():
                         contextMenu.add_command(label=f"Cloud ID: {self.ip}", command=lambda: eHost.EditHostWindow(self.parent, self.hostArr, self.ip))
                         contextMenu.add_separator()
                         contextMenu.add_command(label="Connect to Cloud", command=lambda: print("no cloud yet."))
+                        contextMenu.add_command(label="Manage Cloud", command=lambda: print("no cloud to manage yet."))
         contextMenu.add_separator()
         contextMenu.add_command(label = "Close Menu")
         contextMenu.tk_popup(event.x_root, event.y_root)
