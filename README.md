@@ -8,6 +8,10 @@
 2) Install required libraries: `pip3 install -r requirements.txt`. 
 3) Run main: `python3 main.py`.
 
+### 
+
+![Screenshot](demo.png)
+
 ### Development Checklist:
 
 - [x] Put windows in classes.
