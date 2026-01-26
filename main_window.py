@@ -199,6 +199,8 @@ class downloadIcoPack:
         ]
         if not os.path.isfile(f"resources/pic/downloaded/{self.oxygenImgArr[-1][1]}"):
             print("Installing Oxygen Icons...")
+            if not os.path.isdir("resources/pic/downloaded/"):
+                os.mkdir("resources/pic/downloaded/")
             for x in self.oxygenImgArr:
                 self.downloader(x[0], x[1], x[2])
             print("Icons installed!")
@@ -219,13 +221,15 @@ class ExperimentsWindow:
         title_lbl = Label(win, text="EXPERIMENTS", font = ("", 17, "bold"))
         warning_lbl = Label(win, text="Please use with caution!\nThese features might not work properly yet...")
         noExperiments_lbl = Label(win, text="No Experiments")
-        powershellTest_btn = Button(win, text="Powershell/GraphAPI Test", cursor="hand2", command=lambda: cMgr.MicrosoftGraphAPIClass(program_name))
+        powerShellGraphDomain_text = Entry(win)
+        powershellTest_btn = Button(win, text="Powershell/GraphAPI Test", cursor="hand2", command=lambda: cMgr.MicrosoftGraphAPIClass(program_name, powerShellGraphDomain_text.get()))
         iconChangeTest_btn = Button(win, text="Update Canvas Access Icons", cursor="hand2", command=lambda: updateAccessIcoTEST())
         title_lbl.grid(row=0, column=0, columnspan=3)
         warning_lbl.grid(row=1, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=2, column=0, sticky="ew", columnspan=4)
-        powershellTest_btn.grid(row=3, column=0, columnspan=3)
-        iconChangeTest_btn.grid(row=4, column=0, columnspan=3)
+        powerShellGraphDomain_text.grid(row=3, column=0, columnspan=3)
+        powershellTest_btn.grid(row=4, column=0, columnspan=3)
+        iconChangeTest_btn.grid(row=5, column=0, columnspan=3)
         # noExperiments_lbl.grid(row=3, column=0, columnspan=3)
         ttk.Separator(win, orient='horizontal').grid(row=8, column=0, sticky="ew", columnspan=4)
         win.title(f"{program_name} Experiments")

@@ -22,6 +22,19 @@ from msgraph import GraphServiceClient
 from azure.identity import InteractiveBrowserCredential
 
 class MicrosoftGraphAPIClass:
+    def __init__(self, program_name, domain):
+        # self.authenticated = False
+        # self.authenticate()
+        credential = InteractiveBrowserCredential(tenant_id=domain)
+        scopes = ['https://graph.microsoft.com/.default']
+        self.client = GraphServiceClient(credentials=credential, scopes=scopes)
+        self.authenticated = True
+
+        if self.authenticated == True:
+            x = asyncio.run(self.get_users())
+        self.gui(x)
+        self.win.mainloop()
+
     def get_orgID(self):
         async def func(): await self.client.users.get()
         asyncio.run(func())
@@ -64,18 +77,3 @@ class MicrosoftGraphAPIClass:
                 text = i[0],
                 values = (i[1], i[2]))
         self.hosts_tree.grid(row=0, column=0)
-
-    def __init__(self, program_name):
-        # self.authenticated = False
-        # self.authenticate()
-        
-        x = json.load(open("GAPI-SECRET.json"))["DOMAIN"]
-        credential = InteractiveBrowserCredential(tenant_id=x)
-        scopes = ['https://graph.microsoft.com/.default']
-        self.client = GraphServiceClient(credentials=credential, scopes=scopes)
-        self.authenticated = True
-        
-        if self.authenticated == True:
-            x = asyncio.run(self.get_users())
-        self.gui(x)
-        self.win.mainloop()
