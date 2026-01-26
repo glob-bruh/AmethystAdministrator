@@ -4,9 +4,10 @@
 
 ### Install and Run:
 
-1) Clone the repo: `git clone https://github.com/glob-bruh/AmethystAdministrator`.
-2) Install required libraries: `pip3 install -r requirements.txt`. 
-3) Run main: `python3 main.py`.
+1) Create a Python venv: `python3 -m venv ./AmethystAdministratorEnviroment`.
+2) Clone the repo: `git clone https://github.com/glob-bruh/AmethystAdministrator`.
+3) Install required libraries: `pip3 install -r requirements.txt`. 
+4) Run main: `python3 main.py`.
 
 ### 
 
