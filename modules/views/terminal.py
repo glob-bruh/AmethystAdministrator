@@ -15,7 +15,7 @@ from tkinter import *
 from tkinter import ttk
 
 import canvas_controller as cc
-from devices.android import adb_wireless
+from modules.devices.android import adb_wireless
 
 class TerminalWindow:
     def __init__(self, titleNote, s):

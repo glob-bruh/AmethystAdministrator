@@ -21,6 +21,7 @@ import network_pinger as netPing
 import edit_host as eHost
 from services import services_manager as svMgr
 from services import services_processor as svProc
+from modules.views.device_control_panel import deviceControlPanel as viewDCP
 
 
 class hostCanvas():
@@ -80,7 +81,7 @@ class hostCanvas():
                         #contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.AndroidDebugBridge(self.ip))
                         contextMenu.add_command(label="Connect via Terminal", command=lambda: svProc.determineService(self.hostArr, self.ip))
                         contextMenu.add_command(label="Connect via Remote Desktop")
-                        contextMenu.add_command(label="Remote Administration Tools")
+                        contextMenu.add_command(label="Remote Administration Tools", command=lambda: viewDCP(self.win))
                         contextMenu.add_separator()
                         contextMenu.add_command(label="Auto-ping: OFF", command=lambda: netPing.pinger(self.ip))
                         contextMenu.add_separator()

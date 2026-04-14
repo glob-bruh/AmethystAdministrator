@@ -13,8 +13,8 @@ fill me in
 from tkinter import *
 from tkinter import messagebox
 
-import terminal as term
-from devices.android import adb_wireless
+import modules.views.terminal as term
+from modules.devices.android import adb_wireless
 
 def determineService(hArr, ip):
     for x in hArr:

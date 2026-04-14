@@ -27,7 +27,7 @@ from hashlib import sha256
 import canvas_controller as cc
 import network_verify as netV
 import edit_host as eHost
-import terminal as term
+import modules.views.terminal as term
 import cloud_manager as cMgr
 from services import services_manager as svMgr
 
